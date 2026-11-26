@@ -1,21 +1,29 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
 
-/* ========================================
-   DASAR WEBSITE
-======================================== */
-
 :root {
   font-family: "Nunito", sans-serif;
-  color: #29264a;
+  color: #302b62;
   background: #f7f6ff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 
   --primary: #5145bd;
   --primary-dark: #39318f;
-  --primary-light: #ee eaff;
-  --accent: #ffd166;
+  --primary-light: #eeebff;
+
+  --yellow: #ffd166;
+  --yellow-light: #fff6d9;
+
+  --blue: #74c9f5;
+  --blue-light: #eaf8ff;
+
+  --green: #78d6b0;
+  --green-light: #e9fbf3;
+
+  --coral: #ff9c91;
+  --coral-light: #fff0ed;
+
   --text-dark: #302b62;
   --text-muted: #85819f;
   --border: #eeecfb;
@@ -26,19 +34,29 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
 }
 
-button {
+button,
+select {
   font: inherit;
+}
+
+button {
   cursor: pointer;
 }
 
-button:focus-visible {
-  outline: 3px solid #ffd166;
+button:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--yellow);
   outline-offset: 3px;
 }
 
@@ -46,18 +64,17 @@ button:focus-visible {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
-/* ========================================
-   HEADER DAN BRAND
-======================================== */
+/* HEADER */
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 16px 5%;
+  padding: 15px max(5%, calc((100% - 1100px) / 2));
   background: var(--white);
   border-bottom: 1px solid var(--border);
 }
@@ -67,17 +84,14 @@ button:focus-visible {
   align-items: center;
   gap: 11px;
   min-width: 0;
+  text-decoration: none;
 }
 
 .brand-logo {
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
   object-fit: contain;
-}
-
-.brand-text {
-  min-width: 0;
 }
 
 .brand-text h1 {
@@ -95,37 +109,52 @@ button:focus-visible {
 }
 
 .grade-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
   flex-shrink: 0;
-  padding: 8px 13px;
-  border-radius: 20px;
-  background: #ee eaff;
-  color: var(--primary);
+  padding: 9px 14px;
+  border-radius: 30px;
+  background: var(--yellow-light);
+  color: #9a6a12;
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
-/* ========================================
-   AREA UTAMA
-======================================== */
+/* MAIN */
 
 .main {
-  width: min(100% - 32px, 1000px);
+  width: min(100% - 36px, 1000px);
   margin: 0 auto;
-  padding: 22px 0 28px;
+  padding: 28px 0 36px;
   flex: 1;
 }
 
-/* ========================================
-   BAGIAN SAMBUTAN
-======================================== */
+/* WELCOME HERO */
 
 .welcome {
-  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 190px;
+  margin-bottom: 22px;
+  padding: 28px 38px;
+  overflow: hidden;
+  border-radius: 26px;
+  background: linear-gradient(115deg, #e9e5ff 0%, #f3efff 55%, #fff4d9 100%);
 }
 
-.eyebrow {
-  margin: 0 0 5px;
-  color: #8c82d9;
+.welcome-content {
+  position: relative;
+  z-index: 2;
+  max-width: 570px;
+}
+
+.welcome-label {
+  display: inline-block;
+  margin-bottom: 9px;
+  color: #7769ce;
   font-size: 11px;
   font-weight: 900;
   letter-spacing: 1px;
@@ -134,28 +163,77 @@ button:focus-visible {
 .welcome h2 {
   margin: 0;
   color: var(--text-dark);
-  font-size: clamp(22px, 4vw, 30px);
+  font-size: clamp(28px, 4vw, 40px);
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1.12;
 }
 
-.welcome > p:last-child {
-  margin: 6px 0 0;
+.welcome-content > p {
+  max-width: 440px;
+  margin: 10px 0 0;
   color: #77738f;
   font-size: 14px;
+  line-height: 1.6;
 }
 
-/* ========================================
-   KATALOG MATERI
-======================================== */
+.welcome-decoration {
+  position: relative;
+  width: 220px;
+  height: 145px;
+  flex-shrink: 0;
+}
+
+.decoration-circle {
+  position: absolute;
+  top: 12px;
+  right: 35px;
+  display: grid;
+  place-items: center;
+  width: 112px;
+  height: 112px;
+  border: 8px solid rgba(255, 255, 255, 0.55);
+  border-radius: 36px;
+  background: var(--white);
+  font-size: 58px;
+  transform: rotate(8deg);
+  box-shadow: 0 12px 25px rgba(81, 69, 189, 0.09);
+}
+
+.decoration-star {
+  position: absolute;
+  color: #f2b943;
+  font-size: 30px;
+}
+
+.star-one {
+  top: 0;
+  right: 15px;
+}
+
+.star-two {
+  bottom: 5px;
+  left: 25px;
+  font-size: 22px;
+}
+
+.decoration-small {
+  position: absolute;
+  right: 15px;
+  bottom: 0;
+  font-size: 33px;
+  transform: rotate(-20deg);
+}
+
+/* SECTION */
 
 .catalog,
 .lesson {
-  margin-bottom: 18px;
-  padding: 18px;
+  margin-bottom: 20px;
+  padding: 23px;
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 23px;
   background: var(--white);
+  box-shadow: 0 5px 18px rgba(70, 58, 150, 0.035);
 }
 
 .section-heading,
@@ -164,234 +242,217 @@ button:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 13px;
+  margin-bottom: 17px;
+}
+
+.section-kicker {
+  display: block;
+  margin-bottom: 5px;
+  color: #9186dc;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.1px;
 }
 
 .section-heading h2,
 .lesson-heading h2 {
   margin: 0;
   color: var(--text-dark);
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 900;
   line-height: 1.3;
 }
 
 .section-heading p {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 13px;
 }
 
-/* Kartu daftar materi */
+/* MATERI CARDS */
 
 .materi-list {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .materi-item {
+  position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 12px;
-  width: 100%;
-  padding: 12px;
+  min-width: 0;
+  min-height: 165px;
+  padding: 17px;
   text-align: left;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: var(--white);
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.materi-item:hover,
-.materi-item.active {
-  border-color: #bcb4f4;
+  border: 2px solid transparent;
+  border-radius: 19px;
   background: #f8f7ff;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
 }
 
-.materi-number {
+.materi-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(81, 69, 189, 0.09);
+}
+
+.materi-item.active {
+  border-color: #a69af0;
+  background: #f3f0ff;
+}
+
+.materi-icon {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
-  border-radius: 11px;
-  background: #ee eaff;
-  color: var(--primary);
-  font-size: 12px;
-  font-weight: 900;
+  width: 49px;
+  height: 49px;
+  border-radius: 16px;
+  font-size: 27px;
+}
+
+.icon-huruf {
+  background: var(--yellow-light);
+}
+
+.icon-suku-kata {
+  background: var(--blue-light);
+}
+
+.icon-kata {
+  background: var(--green-light);
 }
 
 .materi-info {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  flex: 1;
+  gap: 5px;
   min-width: 0;
 }
 
 .materi-info strong {
-  color: #393467;
-  font-size: 14px;
+  color: var(--text-dark);
+  font-size: 15px;
   font-weight: 900;
 }
 
 .materi-info small {
   color: var(--text-muted);
   font-size: 11px;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .materi-arrow {
-  color: #9188d8;
-  font-size: 25px;
-  line-height: 1;
+  position: absolute;
+  top: 19px;
+  right: 16px;
+  color: #a49bda;
+  font-size: 20px;
+  opacity: 0;
+  transition: opacity 0.18s ease;
 }
 
-/* ========================================
-   AREA PEMBELAJARAN
-======================================== */
+.materi-item:hover .materi-arrow,
+.materi-item.active .materi-arrow {
+  opacity: 1;
+}
+
+/* LESSON HEADER */
 
 .lesson-heading {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .lesson-count {
-  flex-shrink: 0;
-  padding: 6px 10px;
-  border-radius: 20px;
-  background: #f1efff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 13px;
+  border-radius: 30px;
+  background: var(--primary-light);
   color: var(--primary);
-  font-size: 12px;
-  font-weight: 800;
+  font-size: 13px;
+  font-weight: 900;
   white-space: nowrap;
 }
 
-/* ========================================
-   KARTU MATERI
-======================================== */
+.count-divider {
+  color: #aaa3d8;
+}
 
-.learning-card {
+.progress-track {
+  width: 100%;
+  height: 7px;
+  margin-bottom: 22px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f0eef9;
+}
+
+.progress-value {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #8b7ce5, #5145bd);
+  transition: width 0.25s ease;
+}
+
+/* WORD GROUP */
+
+.word-group-heading {
+  margin-bottom: 11px;
+}
+
+.word-group-heading h3 {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.word-group-heading p {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.word-group-selector {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.word-group-selector button {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 250px;
-  padding: 20px 12px;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #f5f3ff, #fffaf0);
-  text-align: center;
-}
-
-/* Materi huruf */
-
-.letter-display {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 20px;
-}
-
-.uppercase-letter {
-  color: var(--primary);
-  font-size: clamp(80px, 16vw, 130px);
-  font-weight: 900;
-  line-height: 1;
-}
-
-.lowercase-letter {
-  color: #f0a928;
-  font-size: clamp(65px, 13vw, 105px);
-  font-weight: 900;
-  line-height: 1;
-}
-
-/* Materi suku kata */
-
-.syllable-display {
-  color: var(--primary);
-  font-size: clamp(70px, 15vw, 120px);
-  font-weight: 900;
-  line-height: 1;
-}
-
-/* Materi kata */
-
-.word-illustration {
-  margin-bottom: 5px;
-  font-size: 66px;
-  line-height: 1.2;
-}
-
-.word-letter {
-  color: #9188d8;
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.word-title {
-  margin: 4px 0 12px;
-  color: var(--primary);
-  font-size: clamp(36px, 8vw, 58px);
-  font-weight: 900;
-  line-height: 1.1;
-}
-
-/* Pemisahan suku kata */
-
-.syllable-break {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 7px;
-}
-
-.syllable-break span {
-  padding: 7px 13px;
-  border-radius: 10px;
-  background: var(--white);
-  color: var(--primary);
-  font-size: 20px;
-  font-weight: 900;
-}
-
-/* Petunjuk belajar */
-
-.instruction {
-  margin: 15px 0 0;
-  color: #77738f;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-/* ========================================
-   PILIHAN KELOMPOK KATA
-======================================== */
-
-.word-group-selector {
-  display: flex;
-  gap: 8px;
-  margin: 10px 0 14px;
-}
-
-.word-group-selector button {
-  flex: 1;
+  gap: 6px;
   min-width: 0;
-  padding: 10px 8px;
+  min-height: 75px;
+  padding: 9px 5px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--white);
-  color: var(--primary);
-  font-size: 12px;
+  color: #6d6696;
+  font-size: 11px;
   font-weight: 800;
   transition:
     background 0.15s ease,
-    border-color 0.15s ease;
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.word-group-selector button span {
+  font-size: 22px;
 }
 
 .word-group-selector button:hover {
+  transform: translateY(-2px);
   border-color: #bcb4f4;
 }
 
@@ -401,39 +462,262 @@ button:focus-visible {
   color: var(--white);
 }
 
-/* ========================================
-   NAVIGASI SEBELUMNYA DAN BERIKUTNYA
-======================================== */
+/* FILTER */
+
+.filter-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 18px;
+  padding: 13px;
+  border-radius: 15px;
+  background: #faf9ff;
+}
+
+.word-filter {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 180px;
+}
+
+.word-filter label {
+  color: #77718f;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.word-filter select {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #e6e2f5;
+  border-radius: 10px;
+  background: var(--white);
+  color: #514b76;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* LEARNING CARD */
+
+.learning-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 26px 18px;
+  overflow: hidden;
+  border: 1px solid #eee9ff;
+  border-radius: 22px;
+  text-align: center;
+}
+
+.word-card {
+  background:
+    radial-gradient(circle at 12% 15%, rgba(255, 209, 102, 0.2), transparent 22%),
+    radial-gradient(circle at 88% 85%, rgba(120, 214, 176, 0.2), transparent 24%),
+    #f8f6ff;
+}
+
+.letter-card {
+  background:
+    radial-gradient(circle at 85% 15%, rgba(255, 209, 102, 0.25), transparent 24%),
+    #f3f8ff;
+}
+
+.syllable-card {
+  background:
+    radial-gradient(circle at 15% 80%, rgba(120, 214, 176, 0.22), transparent 24%),
+    #fff7f1;
+}
+
+.learning-card-top {
+  position: absolute;
+  top: 17px;
+  right: 18px;
+  left: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.learning-pill {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #8a7bd4;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+}
+
+.learning-sparkle {
+  color: #edbd52;
+  font-size: 22px;
+}
+
+/* LETTER */
+
+.letter-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 24px;
+  margin: 20px 0;
+}
+
+.uppercase-letter {
+  color: var(--primary);
+  font-size: clamp(90px, 17vw, 145px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.lowercase-letter {
+  color: #edae37;
+  font-size: clamp(75px, 14vw, 115px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* SYLLABLE */
+
+.syllable-display {
+  margin: 22px 0;
+  color: var(--primary);
+  font-size: clamp(75px, 15vw, 125px);
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+/* WORD */
+
+.word-illustration {
+  margin: 22px 0 5px;
+  font-size: clamp(65px, 10vw, 85px);
+  line-height: 1.2;
+}
+
+.word-letter {
+  color: #9188d8;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.word-title {
+  margin: 5px 0 13px;
+  color: var(--primary);
+  font-size: clamp(42px, 8vw, 65px);
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+/* SYLLABLE BREAK */
+
+.syllable-break {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.syllable-break span {
+  min-width: 48px;
+  padding: 9px 15px;
+  border: 1px solid #eee9ff;
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--primary);
+  font-size: 21px;
+  font-weight: 900;
+  box-shadow: 0 3px 8px rgba(81, 69, 189, 0.05);
+}
+
+/* TIP */
+
+.learning-tip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 20px;
+  color: #77738f;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.learning-tip span {
+  font-size: 16px;
+}
+
+.empty-card {
+  background: #faf9ff;
+}
+
+.empty-card > span {
+  font-size: 48px;
+}
+
+.empty-card h3 {
+  margin: 10px 0 0;
+  color: var(--text-dark);
+}
+
+.empty-card p {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* NAVIGATION */
 
 .lesson-navigation {
-  display: flex;
-  gap: 10px;
-  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 15px;
 }
 
 .nav-button {
-  flex: 1;
-  min-width: 0;
-  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 49px;
+  padding: 10px 15px;
   border: 0;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 13px;
   font-weight: 900;
   transition:
-    background 0.15s ease,
-    transform 0.15s ease;
+    transform 0.15s ease,
+    background 0.15s ease;
 }
 
 .nav-button:active {
   transform: scale(0.98);
 }
 
+.nav-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.nav-button span {
+  font-size: 17px;
+}
+
 .nav-button.primary {
   background: var(--primary);
   color: var(--white);
+  box-shadow: 0 4px 10px rgba(81, 69, 189, 0.16);
 }
 
-.nav-button.primary:hover {
+.nav-button.primary:hover:not(:disabled) {
   background: var(--primary-dark);
 }
 
@@ -442,53 +726,53 @@ button:focus-visible {
   color: var(--primary);
 }
 
-.nav-button.secondary:hover {
+.nav-button.secondary:hover:not(:disabled) {
   background: #e5e1ff;
 }
 
-/* ========================================
-   TOMBOL DAFTAR MATERI
-======================================== */
+/* LIST */
 
 .toggle-list {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  margin-top: 10px;
-  padding: 10px;
+  margin-top: 12px;
+  padding: 12px 14px;
   border: 1px dashed #c9c3f2;
-  border-radius: 12px;
+  border-radius: 13px;
   background: var(--white);
   color: var(--primary);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 900;
+}
+
+.toggle-list span:last-child {
+  font-size: 18px;
 }
 
 .toggle-list:hover {
   background: #f8f7ff;
 }
 
-/* ========================================
-   GRID PILIHAN HURUF, SUKU KATA, DAN KATA
-======================================== */
-
 .letter-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 7px;
-  margin-top: 12px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 14px;
 }
 
 .grid-item {
   min-width: 0;
-  min-height: 42px;
-  padding: 7px 4px;
+  min-height: 45px;
+  padding: 8px 4px;
+  overflow-wrap: anywhere;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 11px;
   background: var(--white);
   color: var(--primary);
   font-size: 13px;
-  font-weight: 800;
-  overflow-wrap: anywhere;
+  font-weight: 900;
   transition:
     background 0.15s ease,
     border-color 0.15s ease;
@@ -505,79 +789,111 @@ button:focus-visible {
   color: var(--white);
 }
 
-/* ========================================
-   FOOTER
-======================================== */
+/* CLOSING NOTE */
+
+.closing-note {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 17px 20px;
+  border: 1px solid #f4e9bd;
+  border-radius: 17px;
+  background: #fff9e8;
+}
+
+.closing-note > span {
+  font-size: 30px;
+}
+
+.closing-note strong {
+  color: #806322;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.closing-note p {
+  margin: 3px 0 0;
+  color: #9a8558;
+  font-size: 11px;
+}
+
+/* FOOTER */
 
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 15px 5%;
-  background: var(--white);
+  padding: 17px max(5%, calc((100% - 1100px) / 2));
   border-top: 1px solid var(--border);
+  background: var(--white);
   color: var(--text-muted);
   font-size: 11px;
 }
 
 .footer p {
   margin: 0;
-  font-weight: 800;
+  font-weight: 900;
 }
 
-/* ========================================
-   TABLET
-======================================== */
+/* TABLET */
 
-@media (min-width: 600px) {
+@media (max-width: 760px) {
+  .main {
+    width: min(100% - 28px, 650px);
+    padding-top: 20px;
+  }
+
+  .welcome {
+    min-height: 165px;
+    padding: 24px;
+  }
+
+  .welcome-decoration {
+    width: 150px;
+  }
+
+  .decoration-circle {
+    right: 15px;
+    width: 90px;
+    height: 90px;
+    font-size: 48px;
+  }
+
   .materi-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 
   .materi-item {
-    align-items: flex-start;
-    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    min-height: 88px;
+    padding: 13px;
   }
 
   .materi-info {
-    min-width: 0;
+    flex: 1;
   }
 
   .materi-arrow {
-    display: none;
+    opacity: 1;
   }
 
-  .letter-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-}
-
-/* ========================================
-   DESKTOP DAN TABLET LANDSCAPE
-======================================== */
-
-@media (min-width: 900px) {
-  .main {
-    padding-top: 28px;
-  }
-
-  .materi-list {
+  .word-group-selector {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .letter-grid {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
-/* ========================================
-   HP KECIL
-======================================== */
+/* MOBILE */
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
   .header {
-    padding: 12px 16px;
+    padding: 12px 15px;
   }
 
   .brand {
@@ -585,8 +901,8 @@ button:focus-visible {
   }
 
   .brand-logo {
-    width: 38px;
-    height: 38px;
+    width: 39px;
+    height: 39px;
   }
 
   .brand-text h1 {
@@ -598,90 +914,487 @@ button:focus-visible {
   }
 
   .grade-badge {
+    gap: 4px;
     padding: 7px 9px;
     font-size: 10px;
   }
 
   .main {
     width: calc(100% - 22px);
-    padding-top: 16px;
+    padding: 15px 0 24px;
   }
 
   .welcome {
-    margin-bottom: 15px;
+    min-height: 150px;
+    margin-bottom: 14px;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .welcome h2 {
+    font-size: 27px;
+  }
+
+  .welcome-content > p {
+    max-width: 230px;
+    font-size: 12px;
+  }
+
+  .welcome-decoration {
+    position: absolute;
+    right: -35px;
+    bottom: 0;
+    width: 130px;
+    opacity: 0.75;
+  }
+
+  .decoration-circle {
+    right: 35px;
+    width: 75px;
+    height: 75px;
+    border-radius: 25px;
+    font-size: 40px;
   }
 
   .catalog,
   .lesson {
-    margin-bottom: 13px;
-    padding: 13px;
-    border-radius: 16px;
+    margin-bottom: 14px;
+    padding: 15px;
+    border-radius: 19px;
   }
 
-  .section-heading,
-  .lesson-heading {
-    margin-bottom: 11px;
+  .section-heading h2,
+  .lesson-heading h2 {
+    font-size: 18px;
+  }
+
+  .section-heading p {
+    font-size: 11px;
+  }
+
+  .materi-item {
+    min-height: 78px;
+  }
+
+  .materi-icon {
+    width: 43px;
+    height: 43px;
+    font-size: 24px;
+  }
+
+  .materi-info strong {
+    font-size: 13px;
+  }
+
+  .materi-info small {
+    font-size: 10px;
+  }
+
+  .word-group-selector {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .word-group-selector button {
+    min-height: 65px;
+    font-size: 10px;
+  }
+
+  .filter-panel {
+    flex-direction: column;
+    gap: 10px;
+    padding: 11px;
+  }
+
+  .word-filter {
+    min-width: 0;
   }
 
   .learning-card {
-    min-height: 220px;
-    padding: 16px 10px;
+    min-height: 255px;
+    padding: 24px 12px;
+    border-radius: 18px;
+  }
+
+  .word-illustration {
+    margin-top: 23px;
+  }
+
+  .word-title {
+    font-size: 43px;
+  }
+
+  .syllable-break span {
+    min-width: 43px;
+    padding: 8px 11px;
+    font-size: 18px;
+  }
+
+  .learning-tip {
+    max-width: 270px;
+    font-size: 11px;
+  }
+
+  .lesson-navigation {
+    gap: 8px;
+  }
+
+  .nav-button {
+    min-height: 46px;
+    padding: 9px 8px;
+    font-size: 11px;
   }
 
   .letter-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .word-group-selector button {
-    font-size: 11px;
+  .closing-note {
+    padding: 13px;
   }
 
   .footer {
-    padding: 13px 16px;
-    font-size: 10px;
+    padding: 14px;
+    font-size: 9px;
   }
 }
 
-/* FILTER KOSAKATA */
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ========================================
+   PENYESUAIAN LAYOUT SAGHA STUDY CLUB
+======================================== */
+
+/* Perbaikan warna dasar */
+:root {
+  --primary-light: #eeeaff;
+}
+
+/* Area utama dibuat sedikit lebih lebar */
+.main {
+  width: min(100% - 48px, 1120px);
+  padding-top: 32px;
+  padding-bottom: 36px;
+}
+
+/* Header lebih proporsional */
+.header {
+  min-height: 76px;
+  padding: 14px max(24px, calc((100% - 1120px) / 2));
+}
+
+/* Sambutan diberi ruang lebih lega */
+.welcome {
+  text-align: center;
+  margin-bottom: 28px;
+  padding: 12px 0 8px;
+}
+
+.welcome h2 {
+  margin-top: 8px;
+  font-size: clamp(26px, 3vw, 34px);
+}
+
+.welcome > p:last-child {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+/* Jarak antarkartu */
+.catalog,
+.lesson {
+  margin-bottom: 24px;
+  padding: 24px;
+  border-radius: 22px;
+}
+
+/* Judul bagian */
+.section-heading,
+.lesson-heading {
+  margin-bottom: 20px;
+}
+
+/* Katalog materi */
+.materi-list {
+  gap: 12px;
+}
+
+.materi-item {
+  min-height: 88px;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+/* Area pembelajaran */
+.lesson-heading {
+  margin-bottom: 18px;
+}
+
+.learning-card {
+  min-height: 300px;
+  padding: 32px 20px;
+  border-radius: 22px;
+}
+
+/* Ilustrasi kata */
+.word-illustration {
+  font-size: 76px;
+  margin-bottom: 12px;
+}
+
+.word-title {
+  margin: 8px 0 16px;
+  font-size: clamp(42px, 6vw, 64px);
+}
+
+.syllable-break {
+  gap: 10px;
+}
+
+.syllable-break span {
+  min-width: 48px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 22px;
+}
+
+.instruction {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* Pilihan kelompok kata */
+.word-group-selector {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0 20px;
+}
+
+.word-group-selector button {
+  min-height: 48px;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+/* Filter dibuat lebih rapi */
 .word-filter {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 12px 0 16px;
+  gap: 12px;
+  margin: 14px 0;
 }
 
 .word-filter label {
-  font-size: 13px;
-  font-weight: 600;
-  color: #64748b;
+  min-width: 190px;
+  font-size: 14px;
 }
 
 .word-filter-select {
-  min-width: 145px;
-  padding: 9px 12px;
-  border: 1px solid #dbe3ed;
-  border-radius: 10px;
-  background: #ffffff;
-  color: #334155;
-  font: inherit;
+  min-width: 190px;
+  min-height: 44px;
+}
+
+/* Navigasi */
+.lesson-navigation {
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.nav-button {
+  min-height: 48px;
+  padding: 13px 18px;
+  border-radius: 14px;
   font-size: 14px;
-  cursor: pointer;
-  outline-offset: 2px;
 }
 
-.word-filter-select:focus {
-  border-color: #3b82f6;
-  outline: 2px solid rgba(59, 130, 246, 0.15);
+/* Daftar semua materi */
+.toggle-list {
+  min-height: 46px;
+  margin-top: 14px;
+  font-size: 13px;
 }
 
-@media (max-width: 480px) {
+.letter-grid {
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.grid-item {
+  min-height: 48px;
+  border-radius: 12px;
+}
+
+/* Footer */
+.footer {
+  min-height: 64px;
+  padding: 16px max(24px, calc((100% - 1120px) / 2));
+}
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 900px) {
+  .main {
+    width: min(100% - 36px, 760px);
+    padding-top: 24px;
+  }
+
+  .catalog,
+  .lesson {
+    padding: 20px;
+  }
+
+  .word-group-selector {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .word-filter label {
+    min-width: 165px;
+  }
+
+  .word-filter-select {
+    min-width: 170px;
+  }
+}
+
+/* ========================================
+   HP DAN LAYAR KECIL
+======================================== */
+
+@media (max-width: 600px) {
+  .header {
+    min-height: 66px;
+    padding: 12px 16px;
+  }
+
+  .main {
+    width: calc(100% - 24px);
+    padding-top: 20px;
+    padding-bottom: 24px;
+  }
+
+  .welcome {
+    margin-bottom: 20px;
+    padding: 8px 4px;
+  }
+
+  .welcome h2 {
+    font-size: 25px;
+  }
+
+  .welcome > p:last-child {
+    font-size: 13px;
+  }
+
+  .catalog,
+  .lesson {
+    margin-bottom: 16px;
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .section-heading,
+  .lesson-heading {
+    margin-bottom: 16px;
+  }
+
+  .materi-list {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .materi-item {
+    min-height: 76px;
+    padding: 12px;
+  }
+
+  .word-group-selector {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .word-group-selector button {
+    min-height: 46px;
+    font-size: 12px;
+  }
+
   .word-filter {
     align-items: stretch;
     flex-direction: column;
+    gap: 7px;
+    margin: 16px 0;
+  }
+
+  .word-filter label {
+    min-width: 0;
+    font-size: 13px;
   }
 
   .word-filter-select {
     width: 100%;
+    min-height: 46px;
+  }
+
+  .learning-card {
+    min-height: 250px;
+    padding: 24px 12px;
+  }
+
+  .word-illustration {
+    font-size: 66px;
+  }
+
+  .word-title {
+    font-size: 46px;
+  }
+
+  .syllable-break span {
+    min-width: 42px;
+    padding: 9px 13px;
+    font-size: 19px;
+  }
+
+  .lesson-navigation {
+    gap: 8px;
+  }
+
+  .nav-button {
+    min-height: 48px;
+    padding: 11px 8px;
+    font-size: 12px;
+  }
+
+  .letter-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .footer {
+    min-height: 58px;
+    padding: 14px 16px;
+  }
+}
+
+/* Kurangi animasi untuk pengguna yang mengaturnya */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

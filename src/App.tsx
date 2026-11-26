@@ -10,7 +10,11 @@ import {
   type MateriId,
 } from "./data/materi";
 
-import { dataKataSederhana, tingkatKataSederhana } from "./data/materi/kata-sederhana";
+import {
+  dataKataSederhana,
+  tingkatKataSederhana,
+} from "./data/materi/kata-sederhana";
+
 import { dataKataTambahan } from "./data/materi/kata-tambahan";
 import { dataKataLanjutan } from "./data/materi/kata-lanjutan";
 import { dataKataPengayaan } from "./data/materi/kata-pengayaan";
@@ -26,6 +30,20 @@ type KelompokKata =
 
 type FilterTingkat = "semua" | "1" | "2" | "3" | "4";
 
+const ikonMateri: Record<MateriId, string> = {
+  huruf: "🔤",
+  "suku-kata": "🧩",
+  kata: "📚",
+};
+
+const deskripsiKelompok: Record<KelompokKata, string> = {
+  sederhana: "Mulai dari kata-kata yang mudah dibaca.",
+  awal: "Kenali beragam kata dari A sampai Z.",
+  tambahan: "Tambah koleksi kata baru.",
+  lanjutan: "Tantang kemampuan membacamu.",
+  pengayaan: "Jelajahi lebih banyak kosakata.",
+};
+
 function App() {
   const [materiAktif, setMateriAktif] =
     useState<MateriId>("kata");
@@ -33,17 +51,14 @@ function App() {
   const [kelompokKata, setKelompokKata] =
     useState<KelompokKata>("sederhana");
 
-  const [hurufFilter, setHurufFilter] =
-    useState("semua");
+  const [hurufFilter, setHurufFilter] = useState("semua");
 
   const [tingkatFilter, setTingkatFilter] =
     useState<FilterTingkat>("semua");
 
-  const [indeksAktif, setIndeksAktif] =
-    useState(0);
+  const [indeksAktif, setIndeksAktif] = useState(0);
 
-  const [tampilkanDaftar, setTampilkanDaftar] =
-    useState(false);
+  const [tampilkanDaftar, setTampilkanDaftar] = useState(false);
 
   const kataUntukMateri =
     kelompokKata === "sederhana"
@@ -57,19 +72,15 @@ function App() {
             : dataKataPengayaan;
 
   const kataDenganTingkat =
-    kelompokKata !== "sederhana" ||
-    tingkatFilter === "semua"
+    kelompokKata !== "sederhana" || tingkatFilter === "semua"
       ? kataUntukMateri
       : kataUntukMateri.filter(
           (item) =>
-            String(tingkatKataSederhana[item.kata]) ===
-            tingkatFilter
+            String(tingkatKataSederhana[item.kata]) === tingkatFilter
         );
 
   const daftarHurufTersedia = Array.from(
-    new Set(
-      kataDenganTingkat.map((item) => item.huruf)
-    )
+    new Set(kataDenganTingkat.map((item) => item.huruf))
   ).sort();
 
   const kataTerfilter =
@@ -88,15 +99,17 @@ function App() {
 
   const kataAktif = kataTerfilter[indeksAktif];
 
+  const materiTerpilih = daftarMateri.find(
+    (materi) => materi.id === materiAktif
+  );
+
   const pilihMateri = (id: MateriId) => {
     setMateriAktif(id);
     setIndeksAktif(0);
     setTampilkanDaftar(false);
   };
 
-  const pilihKelompokKata = (
-    kelompok: KelompokKata
-  ) => {
+  const pilihKelompokKata = (kelompok: KelompokKata) => {
     setKelompokKata(kelompok);
     setHurufFilter("semua");
     setTingkatFilter("semua");
@@ -118,19 +131,19 @@ function App() {
   };
 
   const materiBerikutnya = () => {
-    setIndeksAktif((sebelumnya) => {
-      return jumlahMateri > 0
+    setIndeksAktif((sebelumnya) =>
+      jumlahMateri > 0
         ? (sebelumnya + 1) % jumlahMateri
-        : 0;
-    });
+        : 0
+    );
   };
 
   const materiSebelumnya = () => {
-    setIndeksAktif((sebelumnya) => {
-      return jumlahMateri > 0
+    setIndeksAktif((sebelumnya) =>
+      jumlahMateri > 0
         ? (sebelumnya - 1 + jumlahMateri) % jumlahMateri
-        : 0;
-    });
+        : 0
+    );
   };
 
   const daftarPilihan =
@@ -140,14 +153,18 @@ function App() {
         ? dataSukuKata
         : kataTerfilter.map((item) => item.kata);
 
+  const persentaseMateri =
+    jumlahMateri > 0
+      ? ((indeksAktif + 1) / jumlahMateri) * 100
+      : 0;
+
   return (
     <div className="app">
-      {/* HEADER */}
       <header className="header">
-        <div className="brand">
+        <a href="/" className="brand" aria-label="Sagha Study Club, beranda">
           <img
             src="/sagha-logo.svg"
-            alt="Logo Sagha Study Club"
+            alt=""
             className="brand-logo"
           />
 
@@ -155,35 +172,44 @@ function App() {
             <h1>Sagha Study Club</h1>
             <p>Belajar membaca, tumbuh bersama.</p>
           </div>
-        </div>
+        </a>
 
         <div className="grade-badge">
+          <span>🎒</span>
           Kelas 1 SD
         </div>
       </header>
 
       <main className="main">
-        {/* SAMBUTAN */}
         <section className="welcome">
-          <p className="eyebrow">
-            SELAMAT BELAJAR
-          </p>
+          <div className="welcome-content">
+            <span className="welcome-label">HALO, TEMAN BELAJAR! 👋</span>
 
-          <h2>Yuk, belajar membaca!</h2>
+            <h2>
+              Yuk, belajar
+              <br />
+              membaca hari ini!
+            </h2>
 
-          <p>
-            Pilih materi dan mulai belajar hari ini.
-          </p>
+            <p>
+              Sedikit demi sedikit, kita jadi semakin pintar membaca.
+            </p>
+          </div>
+
+          <div className="welcome-decoration" aria-hidden="true">
+            <span className="decoration-star star-one">✦</span>
+            <span className="decoration-star star-two">✦</span>
+            <span className="decoration-circle">📖</span>
+            <span className="decoration-small">✏️</span>
+          </div>
         </section>
 
-        {/* KATALOG MATERI */}
         <section className="catalog">
           <div className="section-heading">
             <div>
-              <h2>Daftar Materi</h2>
-              <p>
-                Pilih pelajaran yang ingin dipelajari.
-              </p>
+              <span className="section-kicker">MULAI DARI SINI</span>
+              <h2>Pilih pelajaranmu</h2>
+              <p>Ada banyak hal seru yang bisa kita pelajari!</p>
             </div>
           </div>
 
@@ -192,14 +218,13 @@ function App() {
               <button
                 key={materi.id}
                 className={`materi-item ${
-                  materiAktif === materi.id
-                    ? "active"
-                    : ""
+                  materiAktif === materi.id ? "active" : ""
                 }`}
                 onClick={() => pilihMateri(materi.id)}
+                aria-pressed={materiAktif === materi.id}
               >
-                <span className="materi-number">
-                  {String(materi.urutan).padStart(2, "0")}
+                <span className={`materi-icon icon-${materi.id}`}>
+                  {ikonMateri[materi.id]}
                 </span>
 
                 <span className="materi-info">
@@ -207,176 +232,125 @@ function App() {
                   <small>{materi.deskripsi}</small>
                 </span>
 
-                <span className="materi-arrow">
-                  ›
+                <span className="materi-arrow" aria-hidden="true">
+                  →
                 </span>
               </button>
             ))}
           </div>
         </section>
 
-        {/* AREA MATERI */}
         <section className="lesson">
           <div className="lesson-heading">
             <div>
-              <p className="eyebrow">
-                MATERI PILIHAN
-              </p>
-
-              <h2>
-                {
-                  daftarMateri.find(
-                    (materi) =>
-                      materi.id === materiAktif
-                  )?.judul
-                }
-              </h2>
+              <span className="section-kicker">WAKTUNYA BELAJAR</span>
+              <h2>{materiTerpilih?.judul}</h2>
             </div>
 
-            <span className="lesson-count">
-              {jumlahMateri > 0
-                ? `${indeksAktif + 1} / ${jumlahMateri}`
-                : "0 / 0"}
-            </span>
+            <div className="lesson-count">
+              <span>{indeksAktif + 1}</span>
+              <span className="count-divider">/</span>
+              <span>{jumlahMateri}</span>
+            </div>
           </div>
 
-          {/* PILIH KELOMPOK KATA */}
+          <div className="progress-track">
+            <div
+              className="progress-value"
+              style={{ width: `${persentaseMateri}%` }}
+            />
+          </div>
+
           {materiAktif === "kata" && (
             <>
-              <div className="word-group-selector">
-                <button
-                  className={
-                    kelompokKata === "sederhana"
-                      ? "selected"
-                      : ""
-                  }
-                  onClick={() =>
-                    pilihKelompokKata("sederhana")
-                  }
-                >
-                  Kata Sederhana
-                </button>
-
-                <button
-                  className={
-                    kelompokKata === "awal"
-                      ? "selected"
-                      : ""
-                  }
-                  onClick={() =>
-                    pilihKelompokKata("awal")
-                  }
-                >
-                  Kata A-Z
-                </button>
-
-                <button
-                  className={
-                    kelompokKata === "tambahan"
-                      ? "selected"
-                      : ""
-                  }
-                  onClick={() =>
-                    pilihKelompokKata("tambahan")
-                  }
-                >
-                  Kata Tambahan
-                </button>
-
-                <button
-                  className={
-                    kelompokKata === "lanjutan"
-                      ? "selected"
-                      : ""
-                  }
-                  onClick={() =>
-                    pilihKelompokKata("lanjutan")
-                  }
-                >
-                  Kata Lanjutan
-                </button>
-
-                <button
-                  className={
-                    kelompokKata === "pengayaan"
-                      ? "selected"
-                      : ""
-                  }
-                  onClick={() =>
-                    pilihKelompokKata("pengayaan")
-                  }
-                >
-                  Kata Pengayaan
-                </button>
+              <div className="word-group-heading">
+                <div>
+                  <h3>Pilih kumpulan kata</h3>
+                  <p>
+                    {deskripsiKelompok[kelompokKata]}
+                  </p>
+                </div>
               </div>
 
-              {/* FILTER TINGKAT */}
-              {kelompokKata === "sederhana" && (
+              <div className="word-group-selector">
+                {(
+                  [
+                    ["sederhana", "🌱", "Kata Sederhana"],
+                    ["awal", "🔤", "Kata A-Z"],
+                    ["tambahan", "🌼", "Kata Tambahan"],
+                    ["lanjutan", "🚀", "Kata Lanjutan"],
+                    ["pengayaan", "⭐", "Pengayaan"],
+                  ] as [KelompokKata, string, string][]
+                ).map(([id, ikon, label]) => (
+                  <button
+                    key={id}
+                    className={kelompokKata === id ? "selected" : ""}
+                    onClick={() => pilihKelompokKata(id)}
+                    aria-pressed={kelompokKata === id}
+                  >
+                    <span>{ikon}</span>
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="filter-panel">
+                {kelompokKata === "sederhana" && (
+                  <div className="word-filter">
+                    <label htmlFor="word-level-filter">
+                      Tingkat kesulitan
+                    </label>
+
+                    <select
+                      id="word-level-filter"
+                      value={tingkatFilter}
+                      onChange={(event) =>
+                        pilihTingkat(
+                          event.target.value as FilterTingkat
+                        )
+                      }
+                    >
+                      <option value="semua">Semua tingkat</option>
+                      <option value="1">Tingkat 1 · Paling mudah</option>
+                      <option value="2">Tingkat 2 · Mudah</option>
+                      <option value="3">Tingkat 3 · Menengah</option>
+                      <option value="4">Tingkat 4 · Pengayaan</option>
+                    </select>
+                  </div>
+                )}
+
                 <div className="word-filter">
-                  <label htmlFor="word-level-filter">
-                    Tingkat kesulitan:
+                  <label htmlFor="word-letter-filter">
+                    Pilih huruf awal
                   </label>
 
                   <select
-                    id="word-level-filter"
-                    className="word-filter-select"
-                    value={tingkatFilter}
+                    id="word-letter-filter"
+                    value={hurufFilter}
                     onChange={(event) =>
-                      pilihTingkat(
-                        event.target.value as FilterTingkat
-                      )
+                      pilihHuruf(event.target.value)
                     }
                   >
-                    <option value="semua">
-                      Semua tingkat
-                    </option>
-                    <option value="1">
-                      Tingkat 1 - Paling Mudah
-                    </option>
-                    <option value="2">
-                      Tingkat 2 - Mudah
-                    </option>
-                    <option value="3">
-                      Tingkat 3 - Menengah
-                    </option>
-                    <option value="4">
-                      Tingkat 4 - Pengayaan
-                    </option>
+                    <option value="semua">Semua huruf</option>
+
+                    {daftarHurufTersedia.map((huruf) => (
+                      <option key={huruf} value={huruf}>
+                        Huruf {huruf}
+                      </option>
+                    ))}
                   </select>
                 </div>
-              )}
-
-              {/* FILTER HURUF */}
-              <div className="word-filter">
-                <label htmlFor="word-letter-filter">
-                  Tampilkan kata berdasarkan huruf:
-                </label>
-
-                <select
-                  id="word-letter-filter"
-                  className="word-filter-select"
-                  value={hurufFilter}
-                  onChange={(event) =>
-                    pilihHuruf(event.target.value)
-                  }
-                >
-                  <option value="semua">
-                    Semua huruf
-                  </option>
-
-                  {daftarHurufTersedia.map((huruf) => (
-                    <option key={huruf} value={huruf}>
-                      Huruf {huruf}
-                    </option>
-                  ))}
-                </select>
               </div>
             </>
           )}
 
-          {/* MATERI HURUF */}
           {materiAktif === "huruf" && (
-            <div className="learning-card">
+            <div className="learning-card letter-card">
+              <div className="learning-card-top">
+                <span className="learning-pill">MENGENAL HURUF</span>
+                <span className="learning-sparkle">✦</span>
+              </div>
+
               <div className="letter-display">
                 <span className="uppercase-letter">
                   {dataHuruf[indeksAktif]}
@@ -387,73 +361,79 @@ function App() {
                 </span>
               </div>
 
-              <p className="instruction">
-                Perhatikan bentuk huruf besar dan huruf kecilnya.
-              </p>
+              <div className="learning-tip">
+                <span>💡</span>
+                Perhatikan huruf besar dan huruf kecilnya.
+              </div>
             </div>
           )}
 
-          {/* MATERI SUKU KATA */}
           {materiAktif === "suku-kata" && (
-            <div className="learning-card">
+            <div className="learning-card syllable-card">
+              <div className="learning-card-top">
+                <span className="learning-pill">MENGENAL SUKU KATA</span>
+                <span className="learning-sparkle">✦</span>
+              </div>
+
               <div className="syllable-display">
                 {dataSukuKata[indeksAktif]}
               </div>
 
-              <p className="instruction">
-                Bacalah suku kata ini bersama pengajar.
-              </p>
+              <div className="learning-tip">
+                <span>🗣️</span>
+                Yuk, baca suku kata ini bersama pengajar.
+              </div>
             </div>
           )}
 
-          {/* MATERI KATA */}
           {materiAktif === "kata" && kataAktif && (
-            <div className="learning-card">
-              <div className="word-illustration">
+            <div className="learning-card word-card">
+              <div className="learning-card-top">
+                <span className="learning-pill">AYO MEMBACA KATA</span>
+                <span className="learning-sparkle">✦</span>
+              </div>
+
+              <div className="word-illustration" aria-hidden="true">
                 {kataAktif.emoji}
               </div>
 
               <div className="word-letter">
-                Huruf {kataAktif.huruf}
+                KATA DENGAN HURUF {kataAktif.huruf}
               </div>
 
-              <h3 className="word-title">
-                {kataAktif.kata}
-              </h3>
+              <h3 className="word-title">{kataAktif.kata}</h3>
 
-              <div className="syllable-break">
-                {kataAktif.sukuKata
-                  .split("-")
-                  .map((bagian, index) => (
-                    <span key={`${bagian}-${index}`}>
-                      {bagian}
-                    </span>
-                  ))}
+              <div className="syllable-break" aria-label={`Suku kata: ${kataAktif.sukuKata.split("-").join(", ")}`}>
+                {kataAktif.sukuKata.split("-").map((bagian, index) => (
+                  <span key={`${bagian}-${index}`}>
+                    {bagian}
+                  </span>
+                ))}
               </div>
 
-              <p className="instruction">
+              <div className="learning-tip">
+                <span>🌟</span>
                 Bacalah kata ini, lalu perhatikan suku katanya.
-              </p>
+              </div>
             </div>
           )}
 
-          {/* JIKA TIDAK ADA KATA */}
           {materiAktif === "kata" && !kataAktif && (
-            <div className="learning-card">
-              <p className="instruction">
-                Belum ada kosakata untuk pilihan ini.
-              </p>
+            <div className="learning-card empty-card">
+              <span>📚</span>
+              <h3>Belum ada kata di sini</h3>
+              <p>Coba pilih tingkat atau huruf yang lain, ya.</p>
             </div>
           )}
 
-          {/* NAVIGASI */}
           <div className="lesson-navigation">
             <button
               className="nav-button secondary"
               onClick={materiSebelumnya}
               disabled={jumlahMateri === 0}
             >
-              ‹ Sebelumnya
+              <span>←</span>
+              Sebelumnya
             </button>
 
             <button
@@ -461,20 +441,22 @@ function App() {
               onClick={materiBerikutnya}
               disabled={jumlahMateri === 0}
             >
-              Berikutnya ›
+              Berikutnya
+              <span>→</span>
             </button>
           </div>
 
-          {/* DAFTAR PILIHAN */}
           <button
             className="toggle-list"
-            onClick={() =>
-              setTampilkanDaftar(!tampilkanDaftar)
-            }
+            onClick={() => setTampilkanDaftar(!tampilkanDaftar)}
+            aria-expanded={tampilkanDaftar}
           >
-            {tampilkanDaftar
-              ? "Tutup daftar materi"
-              : "Lihat semua materi"}
+            <span>
+              {tampilkanDaftar
+                ? "Tutup daftar materi"
+                : "Lihat semua materi"}
+            </span>
+            <span>{tampilkanDaftar ? "−" : "+"}</span>
           </button>
 
           {tampilkanDaftar && (
@@ -483,11 +465,10 @@ function App() {
                 <button
                   key={`${item}-${index}`}
                   className={`grid-item ${
-                    indeksAktif === index
-                      ? "selected"
-                      : ""
+                    indeksAktif === index ? "selected" : ""
                   }`}
                   onClick={() => setIndeksAktif(index)}
+                  aria-pressed={indeksAktif === index}
                 >
                   {item}
                 </button>
@@ -495,14 +476,19 @@ function App() {
             </div>
           )}
         </section>
+
+        <section className="closing-note">
+          <span>🌈</span>
+          <div>
+            <strong>Terus semangat belajar!</strong>
+            <p>Setiap kata yang kamu baca adalah kemajuan baru.</p>
+          </div>
+        </section>
       </main>
 
-      {/* FOOTER */}
       <footer className="footer">
         <p>© Sagha Study Club</p>
-        <span>
-          Belajar membaca, tumbuh bersama.
-        </span>
+        <span>Belajar membaca, tumbuh bersama. 💜</span>
       </footer>
     </div>
   );
