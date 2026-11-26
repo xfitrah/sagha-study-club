@@ -1,0 +1,687 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
+
+/* ========================================
+   DASAR WEBSITE
+======================================== */
+
+:root {
+  font-family: "Nunito", sans-serif;
+  color: #29264a;
+  background: #f7f6ff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  --primary: #5145bd;
+  --primary-dark: #39318f;
+  --primary-light: #ee eaff;
+  --accent: #ffd166;
+  --text-dark: #302b62;
+  --text-muted: #85819f;
+  --border: #eeecfb;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid #ffd166;
+  outline-offset: 3px;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========================================
+   HEADER DAN BRAND
+======================================== */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 5%;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+
+.brand-logo {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.brand-text {
+  min-width: 0;
+}
+
+.brand-text h1 {
+  margin: 0;
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.brand-text p {
+  margin: 3px 0 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.grade-badge {
+  flex-shrink: 0;
+  padding: 8px 13px;
+  border-radius: 20px;
+  background: #ee eaff;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* ========================================
+   AREA UTAMA
+======================================== */
+
+.main {
+  width: min(100% - 32px, 1000px);
+  margin: 0 auto;
+  padding: 22px 0 28px;
+  flex: 1;
+}
+
+/* ========================================
+   BAGIAN SAMBUTAN
+======================================== */
+
+.welcome {
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  margin: 0 0 5px;
+  color: #8c82d9;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.welcome h2 {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.welcome > p:last-child {
+  margin: 6px 0 0;
+  color: #77738f;
+  font-size: 14px;
+}
+
+/* ========================================
+   KATALOG MATERI
+======================================== */
+
+.catalog,
+.lesson {
+  margin-bottom: 18px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--white);
+}
+
+.section-heading,
+.lesson-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 13px;
+}
+
+.section-heading h2,
+.lesson-heading h2 {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.section-heading p {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* Kartu daftar materi */
+
+.materi-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.materi-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--white);
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.materi-item:hover,
+.materi-item.active {
+  border-color: #bcb4f4;
+  background: #f8f7ff;
+}
+
+.materi-number {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  background: #ee eaff;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.materi-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.materi-info strong {
+  color: #393467;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.materi-info small {
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.materi-arrow {
+  color: #9188d8;
+  font-size: 25px;
+  line-height: 1;
+}
+
+/* ========================================
+   AREA PEMBELAJARAN
+======================================== */
+
+.lesson-heading {
+  margin-bottom: 14px;
+}
+
+.lesson-count {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #f1efff;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* ========================================
+   KARTU MATERI
+======================================== */
+
+.learning-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  padding: 20px 12px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #f5f3ff, #fffaf0);
+  text-align: center;
+}
+
+/* Materi huruf */
+
+.letter-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 20px;
+}
+
+.uppercase-letter {
+  color: var(--primary);
+  font-size: clamp(80px, 16vw, 130px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.lowercase-letter {
+  color: #f0a928;
+  font-size: clamp(65px, 13vw, 105px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Materi suku kata */
+
+.syllable-display {
+  color: var(--primary);
+  font-size: clamp(70px, 15vw, 120px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Materi kata */
+
+.word-illustration {
+  margin-bottom: 5px;
+  font-size: 66px;
+  line-height: 1.2;
+}
+
+.word-letter {
+  color: #9188d8;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.word-title {
+  margin: 4px 0 12px;
+  color: var(--primary);
+  font-size: clamp(36px, 8vw, 58px);
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+/* Pemisahan suku kata */
+
+.syllable-break {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+}
+
+.syllable-break span {
+  padding: 7px 13px;
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: 900;
+}
+
+/* Petunjuk belajar */
+
+.instruction {
+  margin: 15px 0 0;
+  color: #77738f;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ========================================
+   PILIHAN KELOMPOK KATA
+======================================== */
+
+.word-group-selector {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.word-group-selector button {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.word-group-selector button:hover {
+  border-color: #bcb4f4;
+}
+
+.word-group-selector button.selected {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* ========================================
+   NAVIGASI SEBELUMNYA DAN BERIKUTNYA
+======================================== */
+
+.lesson-navigation {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.nav-button {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 14px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 900;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.nav-button:active {
+  transform: scale(0.98);
+}
+
+.nav-button.primary {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.nav-button.primary:hover {
+  background: var(--primary-dark);
+}
+
+.nav-button.secondary {
+  background: #f0eeff;
+  color: var(--primary);
+}
+
+.nav-button.secondary:hover {
+  background: #e5e1ff;
+}
+
+/* ========================================
+   TOMBOL DAFTAR MATERI
+======================================== */
+
+.toggle-list {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px dashed #c9c3f2;
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.toggle-list:hover {
+  background: #f8f7ff;
+}
+
+/* ========================================
+   GRID PILIHAN HURUF, SUKU KATA, DAN KATA
+======================================== */
+
+.letter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.grid-item {
+  min-width: 0;
+  min-height: 42px;
+  padding: 7px 4px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.grid-item:hover {
+  border-color: #bcb4f4;
+  background: #f8f7ff;
+}
+
+.grid-item.selected {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 15px 5%;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.footer p {
+  margin: 0;
+  font-weight: 800;
+}
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (min-width: 600px) {
+  .materi-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .materi-item {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .materi-info {
+    min-width: 0;
+  }
+
+  .materi-arrow {
+    display: none;
+  }
+
+  .letter-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+/* ========================================
+   DESKTOP DAN TABLET LANDSCAPE
+======================================== */
+
+@media (min-width: 900px) {
+  .main {
+    padding-top: 28px;
+  }
+
+  .materi-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .letter-grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
+/* ========================================
+   HP KECIL
+======================================== */
+
+@media (max-width: 420px) {
+  .header {
+    padding: 12px 16px;
+  }
+
+  .brand {
+    gap: 8px;
+  }
+
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand-text h1 {
+    font-size: 16px;
+  }
+
+  .brand-text p {
+    font-size: 10px;
+  }
+
+  .grade-badge {
+    padding: 7px 9px;
+    font-size: 10px;
+  }
+
+  .main {
+    width: calc(100% - 22px);
+    padding-top: 16px;
+  }
+
+  .welcome {
+    margin-bottom: 15px;
+  }
+
+  .catalog,
+  .lesson {
+    margin-bottom: 13px;
+    padding: 13px;
+    border-radius: 16px;
+  }
+
+  .section-heading,
+  .lesson-heading {
+    margin-bottom: 11px;
+  }
+
+  .learning-card {
+    min-height: 220px;
+    padding: 16px 10px;
+  }
+
+  .letter-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .word-group-selector button {
+    font-size: 11px;
+  }
+
+  .footer {
+    padding: 13px 16px;
+    font-size: 10px;
+  }
+}
+
+/* FILTER KOSAKATA */
+.word-filter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+
+.word-filter label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.word-filter-select {
+  min-width: 145px;
+  padding: 9px 12px;
+  border: 1px solid #dbe3ed;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #334155;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  outline-offset: 2px;
+}
+
+.word-filter-select:focus {
+  border-color: #3b82f6;
+  outline: 2px solid rgba(59, 130, 246, 0.15);
+}
+
+@media (max-width: 480px) {
+  .word-filter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .word-filter-select {
+    width: 100%;
+  }
+}

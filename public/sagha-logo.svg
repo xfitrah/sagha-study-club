@@ -1,0 +1,34 @@
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100"
+>
+  <!-- Background logo -->
+  <rect
+    width="100"
+    height="100"
+    rx="28"
+    fill="#5145BD"
+  />
+
+  <!-- Letter S -->
+  <path
+    d="M68 31
+       C61 22 38 22 31 34
+       C23 48 40 51 51 55
+       C65 60 72 66 66 78
+       C59 91 35 87 27 76"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="10"
+    stroke-linecap="round"
+  />
+
+  <!-- Yellow accent -->
+  <circle
+    cx="74"
+    cy="25"
+    r="6"
+    fill="#FFD166"
+  />
+</svg>
