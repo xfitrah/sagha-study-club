@@ -227,6 +227,13 @@ function App() {
       ? ((indeksAktif + 1) / jumlahMateri) * 100
       : 0;
 
+  const kelasMain =
+    tahapHalaman === "pembuka"
+      ? "main main-centered main-welcome"
+      : tahapHalaman === "pilih-pelajaran"
+        ? "main main-centered main-selection"
+        : "main";
+
   return (
     <div className="app">
       <header className="header">
@@ -257,7 +264,7 @@ function App() {
         </div>
       </header>
 
-      <main className="main">
+      <main className={kelasMain}>
         {tahapHalaman === "pembuka" && (
           <section className="welcome">
             <div className="welcome-content">
@@ -343,7 +350,6 @@ function App() {
                 <span>← Kembali ke Pilihan Pelajaran</span>
               </button>
 
-              {/* Materi pembelajaran berada di bagian atas */}
               <section className="lesson">
                 <div className="lesson-heading">
                   <div>
@@ -598,7 +604,6 @@ function App() {
                 )}
               </section>
 
-              {/* Pilihan materi membaca berada di bawah pembelajaran */}
               <section className="catalog">
                 <div className="section-heading">
                   <div>
