@@ -1207,7 +1207,7 @@ button:disabled {
 
 /* =========================================
    CENTER LAYOUT: HALAMAN PEMBUKA & PILIHAN
-   ========================================= */
+========================================= */
 
 .main-centered {
   display: flex;
@@ -1220,14 +1220,12 @@ button:disabled {
   padding-bottom: 24px;
 }
 
-/* Halaman pembuka */
 .main-welcome .welcome {
   width: 100%;
   max-width: 900px;
   margin: auto;
 }
 
-/* Halaman pemilihan pelajaran */
 .main-selection .catalog {
   width: 100%;
   max-width: 760px;
@@ -1249,7 +1247,6 @@ button:disabled {
   margin-right: auto;
 }
 
-/* Penyesuaian layar kecil */
 @media (max-width: 600px) {
   .main-centered {
     justify-content: center;
@@ -1268,3 +1265,1173 @@ button:disabled {
   }
 }
 
+/* =========================================
+   MATERI BERHITUNG
+   Semua selector khusus dibatasi dengan
+   .counting-lesson agar tidak mengubah
+   tampilan materi Mengenal Angka.
+========================================= */
+
+.counting-lesson {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Kartu Menghitung Benda saja */
+.counting-lesson .number-card {
+  width: 100%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* Area ilustrasi Menghitung Benda saja */
+.counting-lesson .number-illustration {
+  width: 100%;
+  min-height: 150px;
+  padding: 18px 16px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* Ikon buah dan benda */
+.counting-lesson .counting-objects {
+  display: block;
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+  text-align: center;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  line-height: 1.6;
+  font-size: 1.75rem;
+  letter-spacing: 1px;
+}
+
+/* Ilustrasi keranjang untuk soal nol */
+.counting-lesson .zero-illustration {
+  display: inline-block;
+  font-size: 3rem;
+}
+
+/* Pilihan jawaban */
+.counting-lesson .counting-answer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 460px;
+  margin: 20px auto 8px;
+}
+
+.counting-lesson .counting-answer-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 90px;
+  padding: 14px;
+  border: 2px solid #e8e2fa;
+  border-radius: 18px;
+  background: #ffffff;
+  color: var(--primary);
+  box-shadow: 0 4px 10px rgba(70, 58, 150, 0.06);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.counting-lesson .counting-answer-button strong {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.counting-lesson .counting-answer-button:hover:not(:disabled) {
+  border-color: #8b7cf6;
+  transform: translateY(-2px);
+}
+
+.counting-lesson .counting-answer-button.answer-correct {
+  border-color: #48b985;
+  background: #e9f9f0;
+  color: #218653;
+}
+
+.counting-lesson .counting-answer-button.answer-wrong {
+  border-color: #f0a0a0;
+  background: #fff0f0;
+  color: #c44d4d;
+}
+
+.counting-lesson .counting-answer-button:disabled {
+  cursor: default;
+}
+
+/* Umpan balik jawaban */
+.counting-lesson .counting-feedback {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto 0;
+  padding: 14px 18px;
+  border-radius: 16px;
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.counting-lesson .counting-feedback.correct {
+  background: #e9f9f0;
+  color: #218653;
+}
+
+.counting-lesson .counting-feedback.wrong {
+  background: #fff5e8;
+  color: #a66a20;
+}
+
+/* Navigasi khusus latihan menghitung */
+.counting-lesson .lesson-navigation {
+  width: 100%;
+  max-width: 700px;
+  margin: 24px auto 0;
+}
+
+/* =========================================
+   RESPONSIVE MATERI BERHITUNG
+========================================= */
+
+@media (max-width: 768px) {
+  .counting-lesson {
+    max-width: 100%;
+  }
+
+  .counting-lesson .number-card {
+    max-width: 100%;
+  }
+
+  .counting-lesson .number-illustration {
+    min-height: 135px;
+    padding: 16px 10px;
+  }
+
+  .counting-lesson .counting-objects {
+    font-size: 1.55rem;
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+
+  .counting-lesson .counting-answer-grid {
+    gap: 12px;
+  }
+
+  .counting-lesson .counting-answer-button {
+    min-height: 78px;
+    border-radius: 16px;
+  }
+
+  .counting-lesson .counting-answer-button strong {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .counting-lesson .number-illustration {
+    min-height: 120px;
+    padding: 12px 8px;
+  }
+
+  .counting-lesson .counting-objects {
+    font-size: 1.35rem;
+    letter-spacing: 0;
+    line-height: 1.6;
+  }
+
+  .counting-lesson .zero-illustration {
+    font-size: 2.7rem;
+  }
+
+  .counting-lesson .counting-answer-grid {
+    gap: 10px;
+  }
+
+  .counting-lesson .counting-answer-button {
+    min-height: 70px;
+    padding: 10px;
+  }
+
+  .counting-lesson .counting-answer-button strong {
+    font-size: 1.5rem;
+  }
+
+  .counting-lesson .counting-feedback {
+    padding: 12px;
+    font-size: 12px;
+  }
+}
+
+/* =========================================
+   MENGENAL ANGKA 0-10
+   Khusus kartu Mengenal Angka.
+   Tidak mengubah Menghitung Benda.
+========================================= */
+
+.lesson > .number-card {
+  width: 100%;
+  min-height: 440px;
+  padding: 48px 24px 30px;
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 209, 102, 0.22),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 88% 78%,
+      rgba(120, 214, 176, 0.2),
+      transparent 25%
+    ),
+    #f8f6ff;
+}
+
+/* Area angka dan nama angka */
+.lesson > .number-card .number-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  margin: 12px 0 8px;
+}
+
+/* Angka utama */
+.lesson > .number-card .number-symbol {
+  display: block;
+  color: var(--primary);
+  font-size: clamp(100px, 15vw, 150px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Nama angka */
+.lesson > .number-card .number-name {
+  display: block;
+  margin-top: 5px;
+  color: #edae37;
+  font-size: clamp(25px, 4vw, 34px);
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+/* Area ilustrasi buah atau benda */
+.lesson > .number-card .number-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100px;
+  margin: 8px auto 4px;
+  padding: 8px;
+  overflow: visible;
+}
+
+/* Ukuran ikon buah */
+.lesson > .number-card .counting-objects {
+  display: block;
+  width: 100%;
+  max-width: 850px;
+  color: inherit;
+  font-size: clamp(34px, 5vw, 52px);
+  line-height: 1.65;
+  letter-spacing: 3px;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: normal;
+}
+
+/* Ilustrasi untuk angka nol */
+.lesson > .number-card .zero-illustration {
+  display: inline-block;
+  font-size: 64px;
+  line-height: 1.2;
+}
+
+/* Deskripsi angka */
+.lesson > .number-card .number-description {
+  margin: 8px 0 0;
+  color: var(--text-dark);
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Jarak petunjuk belajar */
+.lesson > .number-card .learning-tip {
+  margin-top: 18px;
+}
+
+/* =========================================
+   RESPONSIVE MENGENAL ANGKA
+========================================= */
+
+@media (max-width: 768px) {
+  .lesson > .number-card {
+    min-height: 400px;
+    padding: 44px 16px 26px;
+  }
+
+  .lesson > .number-card .number-symbol {
+    font-size: clamp(90px, 17vw, 125px);
+  }
+
+  .lesson > .number-card .number-name {
+    font-size: 29px;
+  }
+
+  .lesson > .number-card .number-illustration {
+    min-height: 90px;
+  }
+
+  .lesson > .number-card .counting-objects {
+    font-size: clamp(30px, 5vw, 42px);
+    letter-spacing: 2px;
+  }
+
+  .lesson > .number-card .zero-illustration {
+    font-size: 56px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lesson > .number-card {
+    min-height: 360px;
+    padding: 42px 10px 22px;
+  }
+
+  .lesson > .number-card .number-symbol {
+    font-size: 96px;
+  }
+
+  .lesson > .number-card .number-name {
+    font-size: 26px;
+  }
+
+  .lesson > .number-card .number-illustration {
+    min-height: 85px;
+    padding: 5px;
+  }
+
+  .lesson > .number-card .counting-objects {
+    font-size: 32px;
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+
+  .lesson > .number-card .zero-illustration {
+    font-size: 50px;
+  }
+
+  .lesson > .number-card .number-description {
+    font-size: 15px;
+  }
+}
+
+/* =========================================
+   DAFTAR ANGKA 0-10
+   ========================================= */
+
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.number-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  min-width: 0;
+  min-height: 88px;
+  padding: 12px 6px;
+
+  border: 2px solid #eee8f8;
+  border-radius: 18px;
+
+  background: #ffffff;
+  color: #554477;
+
+  font-family: inherit;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.number-grid-item strong {
+  display: block;
+  color: #7955c7;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.number-grid-item small {
+  display: block;
+  color: #81758f;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.number-grid-item:hover {
+  background: #f8f5ff;
+  border-color: #bca8ec;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 14px rgba(111, 80, 170, 0.10);
+}
+
+.number-grid-item.selected {
+  background: #f0eaff;
+  border-color: #8968db;
+  box-shadow: 0 4px 12px rgba(111, 80, 170, 0.12);
+}
+
+.number-grid-item.selected strong {
+  color: #6842b8;
+}
+
+.number-grid-item.selected small {
+  color: #7656b4;
+}
+
+.number-grid-item:focus-visible {
+  outline: 3px solid #9b7be5;
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .number-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .number-grid-item {
+    min-height: 78px;
+    border-radius: 15px;
+  }
+
+  .number-grid-item strong {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .number-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .number-grid-item {
+    min-height: 70px;
+    padding: 9px 4px;
+    border-radius: 13px;
+  }
+
+  .number-grid-item strong {
+    font-size: 23px;
+  }
+
+  .number-grid-item small {
+    font-size: 11px;
+  }
+}
+
+/* =========================================
+   KARTU UTAMA LATIHAN MENGHITUNG
+   ========================================= */
+
+.counting-lesson .counting-main-card {
+  width: 100%;
+  min-height: 560px;
+  padding: 28px 28px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 18px;
+}
+
+.counting-lesson .counting-main-card .learning-card-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.counting-lesson .counting-main-card .lesson-count {
+  flex-shrink: 0;
+}
+
+.counting-lesson .counting-main-card .progress-track {
+  width: 100%;
+  margin: 0;
+}
+
+.counting-lesson .counting-main-card > .number-description {
+  margin: 4px 0 0;
+  font-size: clamp(23px, 3vw, 30px);
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.counting-lesson .counting-main-card .number-illustration {
+  width: 100%;
+  min-height: 160px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+}
+
+.counting-lesson .counting-main-card .counting-objects {
+  font-size: clamp(35px, 5vw, 58px);
+  line-height: 1.65;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.counting-lesson .counting-main-card .zero-illustration {
+  font-size: 90px;
+}
+
+.counting-lesson .counting-main-card .word-group-heading {
+  width: 100%;
+  margin: 0;
+}
+
+.counting-lesson .counting-main-card .counting-answer-grid {
+  width: 100%;
+  margin-top: 0;
+}
+
+.counting-lesson .counting-main-card .answer-feedback {
+  width: 100%;
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .counting-lesson .counting-main-card {
+    min-height: 520px;
+    padding: 24px 18px;
+    gap: 16px;
+  }
+
+  .counting-lesson .counting-main-card .number-illustration {
+    min-height: 140px;
+  }
+
+  .counting-lesson .counting-main-card .counting-objects {
+    font-size: clamp(32px, 6vw, 46px);
+  }
+
+  .counting-lesson .counting-main-card .zero-illustration {
+    font-size: 76px;
+  }
+}
+
+@media (max-width: 480px) {
+  .counting-lesson .counting-main-card {
+    min-height: 490px;
+    padding: 20px 14px;
+    gap: 14px;
+    border-radius: 22px;
+  }
+
+  .counting-lesson .counting-main-card .number-illustration {
+    min-height: 125px;
+    padding: 8px 2px;
+  }
+
+  .counting-lesson .counting-main-card .counting-objects {
+    font-size: 32px;
+    letter-spacing: 1px;
+    line-height: 1.7;
+  }
+
+  .counting-lesson .counting-main-card .zero-illustration {
+    font-size: 68px;
+  }
+
+  .counting-lesson .counting-main-card > .number-description {
+    font-size: 23px;
+  }
+}
+
+/* =========================================
+   LATIHAN MENGHITUNG: LAYOUT LEBIH RINGKAS
+   ========================================= */
+
+.counting-lesson {
+  gap: 10px;
+}
+
+.counting-lesson .counting-main-card {
+  min-height: unset;
+  padding: 20px 24px;
+  gap: 10px;
+  border-radius: 22px;
+}
+
+.counting-lesson .counting-main-card .learning-card-top {
+  min-height: 28px;
+}
+
+.counting-lesson .counting-main-card .learning-pill {
+  font-size: 11px;
+  padding: 6px 11px;
+}
+
+.counting-lesson .counting-main-card .lesson-count {
+  font-size: 13px;
+}
+
+.counting-lesson .counting-main-card .progress-track {
+  height: 7px;
+}
+
+.counting-lesson .counting-main-card > .number-description {
+  margin: 2px 0;
+  font-size: 23px;
+  line-height: 1.3;
+}
+
+.counting-lesson .counting-main-card .number-illustration {
+  min-height: 105px;
+  padding: 4px;
+  margin: 0;
+}
+
+.counting-lesson .counting-main-card .counting-objects {
+  font-size: clamp(30px, 4vw, 43px);
+  line-height: 1.45;
+  letter-spacing: 2px;
+}
+
+.counting-lesson .counting-main-card .zero-illustration {
+  font-size: 65px;
+}
+
+.counting-lesson .counting-main-card .word-group-heading {
+  margin: 0;
+}
+
+.counting-lesson .counting-main-card .word-group-heading h3 {
+  font-size: 18px;
+  margin: 0 0 3px;
+}
+
+.counting-lesson .counting-main-card .word-group-heading p {
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.counting-lesson .counting-main-card .counting-answer-grid {
+  gap: 10px;
+}
+
+.counting-lesson .counting-main-card .counting-answer-button {
+  min-height: 58px;
+  padding: 9px;
+  border-radius: 14px;
+}
+
+.counting-lesson .counting-main-card .counting-answer-button strong {
+  font-size: 24px;
+}
+
+.counting-lesson .counting-main-card .answer-feedback {
+  padding: 10px 13px;
+  gap: 9px;
+  border-radius: 13px;
+}
+
+.counting-lesson .counting-main-card .answer-feedback strong {
+  font-size: 13px;
+}
+
+.counting-lesson .counting-main-card .answer-feedback p {
+  font-size: 12px;
+  line-height: 1.4;
+  margin-top: 3px;
+}
+
+.counting-lesson .counting-main-card .feedback-icon {
+  font-size: 23px;
+}
+
+.counting-lesson .lesson-navigation {
+  margin-top: 2px;
+}
+
+.counting-lesson .counting-navigation-note {
+  margin-top: 0;
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .counting-lesson .counting-main-card {
+    padding: 18px;
+    gap: 9px;
+  }
+
+  .counting-lesson .counting-main-card .number-illustration {
+    min-height: 95px;
+  }
+
+  .counting-lesson .counting-main-card .counting-objects {
+    font-size: clamp(28px, 5vw, 38px);
+  }
+}
+
+@media (max-width: 480px) {
+  .counting-lesson .counting-main-card {
+    padding: 15px 13px;
+    gap: 8px;
+    border-radius: 18px;
+  }
+
+  .counting-lesson .counting-main-card > .number-description {
+    font-size: 20px;
+  }
+
+  .counting-lesson .counting-main-card .number-illustration {
+    min-height: 85px;
+  }
+
+  .counting-lesson .counting-main-card .counting-objects {
+    font-size: 29px;
+    letter-spacing: 1px;
+  }
+
+  .counting-lesson .counting-main-card .zero-illustration {
+    font-size: 56px;
+  }
+
+  .counting-lesson .counting-main-card .word-group-heading h3 {
+    font-size: 16px;
+  }
+
+  .counting-lesson .counting-main-card .word-group-heading p {
+    font-size: 12px;
+  }
+
+  .counting-lesson .counting-main-card .counting-answer-button {
+    min-height: 52px;
+  }
+
+  .counting-lesson .counting-main-card .counting-answer-button strong {
+    font-size: 22px;
+  }
+}
+
+/* =========================================
+   SAMAKAN BACKGROUND MENGHITUNG BENDA
+   DENGAN MENGENAL ANGKA
+========================================= */
+
+.counting-lesson .counting-main-card {
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 209, 102, 0.22),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 88% 78%,
+      rgba(120, 214, 176, 0.2),
+      transparent 25%
+    ),
+    #f8f6ff;
+
+  border: 1px solid #eee9ff;
+}
+
+/* =========================================
+   PROGRESS BAR DI ATAS KARTU MENGHITUNG
+========================================= */
+
+.counting-lesson .counting-progress {
+  width: 100%;
+  height: 8px;
+  margin: 0 0 12px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #e9e6f5;
+}
+
+.counting-lesson .counting-progress .progress-value {
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #8b7ce5, #5145bd);
+  transition: width 0.3s ease;
+}
+.counting-lesson .lesson-count {
+  margin-right: 30px;
+}
+
+/* =========================================
+   MEMBANDINGKAN BILANGAN
+========================================= */
+
+.comparison-lesson {
+  width: 100%;
+}
+
+.comparison-lesson .comparison-progress {
+  width: 100%;
+  height: 8px;
+  margin: 0 0 12px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #e9e6f5;
+}
+
+.comparison-lesson .comparison-progress .progress-value {
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #8b7ce5, #5145bd);
+  transition: width 0.3s ease;
+}
+
+.comparison-main-card {
+  min-height: unset;
+  padding: 24px;
+  gap: 14px;
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 209, 102, 0.22),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 88% 78%,
+      rgba(120, 214, 176, 0.2),
+      transparent 25%
+    ),
+    #f8f6ff;
+  border: 1px solid #eee9ff;
+}
+
+.comparison-count {
+  margin-right: 8px;
+  color: #7166b5;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.comparison-question {
+  max-width: 540px;
+  margin: 4px auto 0;
+  color: #37315e;
+  font-size: clamp(19px, 3vw, 25px);
+  line-height: 1.4;
+}
+
+.comparison-instruction {
+  max-width: 500px;
+  margin: 0 auto;
+  color: #77728e;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.comparison-groups {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.comparison-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  min-height: 190px;
+  padding: 14px 10px;
+  border: 1px solid #e9e3fb;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.comparison-group-label {
+  color: #8278bd;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.comparison-objects {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 90px;
+  padding: 8px 2px;
+}
+
+.comparison-objects > span {
+  font-size: clamp(24px, 4vw, 34px);
+  line-height: 1.2;
+}
+
+.comparison-empty {
+  color: #a29bb8;
+  font-size: 15px !important;
+  font-weight: 600;
+}
+
+.comparison-number {
+  color: #5145bd;
+  font-size: 25px;
+}
+
+.comparison-versus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa3c5;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.comparison-answer-heading {
+  margin-top: 4px;
+  color: #514a73;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.comparison-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+
+.comparison-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 88px;
+  padding: 10px 6px;
+  border: 2px solid #e8e2f7;
+  border-radius: 15px;
+  background: #fff;
+  color: #514a73;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.comparison-option:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: #9a8ee5;
+  background: #f8f6ff;
+}
+
+.comparison-option strong {
+  color: #6659c5;
+  font-size: 27px;
+  line-height: 1;
+}
+
+.comparison-option span {
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.comparison-option:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.comparison-option.correct {
+  border-color: #63b88b;
+  background: #edfaf2;
+}
+
+.comparison-option.correct strong {
+  color: #27945b;
+}
+
+.comparison-option.incorrect {
+  border-color: #e79a9a;
+  background: #fff1f1;
+}
+
+.comparison-option.incorrect strong {
+  color: #cf5555;
+}
+
+.comparison-feedback {
+  width: 100%;
+  padding: 16px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.comparison-feedback.success {
+  border: 1px solid #bce8ce;
+  background: #effaf3;
+  color: #28764b;
+}
+
+.comparison-feedback.error {
+  border: 1px solid #f0d1bd;
+  background: #fff7f0;
+  color: #925b37;
+}
+
+.comparison-feedback > strong {
+  font-size: 16px;
+}
+
+.comparison-feedback p {
+  margin: 7px 0 14px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.comparison-feedback .nav-button {
+  margin: 0 auto;
+}
+
+.comparison-result {
+  min-height: 360px;
+  padding: 30px 20px;
+  gap: 14px;
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 209, 102, 0.22),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 88% 78%,
+      rgba(120, 214, 176, 0.2),
+      transparent 25%
+    ),
+    #f8f6ff;
+}
+
+.comparison-result-icon {
+  font-size: 58px;
+}
+
+.comparison-result h3 {
+  margin: 0;
+  color: #37315e;
+  font-size: 25px;
+}
+
+.comparison-result > p {
+  max-width: 420px;
+  margin: 0;
+  color: #77728e;
+  line-height: 1.6;
+}
+
+.comparison-score {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 8px 0;
+}
+
+.comparison-score strong {
+  color: #5145bd;
+  font-size: 34px;
+}
+
+.comparison-score span {
+  color: #77728e;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .comparison-main-card {
+    padding: 18px 12px;
+    gap: 12px;
+  }
+
+  .comparison-groups {
+    gap: 7px;
+  }
+
+  .comparison-group {
+    min-height: 165px;
+    padding: 12px 5px;
+  }
+
+  .comparison-objects {
+    gap: 5px;
+    min-height: 78px;
+  }
+
+  .comparison-objects > span {
+    font-size: 25px;
+  }
+
+  .comparison-options {
+    gap: 6px;
+  }
+
+  .comparison-option {
+    min-height: 78px;
+    padding: 8px 3px;
+  }
+
+  .comparison-option strong {
+    font-size: 24px;
+  }
+
+  .comparison-option span {
+    font-size: 11px;
+  }
+}

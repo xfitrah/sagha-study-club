@@ -1,6 +1,6 @@
 
 import "./data/materi/validasi-kata";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   daftarMateri,
@@ -18,6 +18,10 @@ import {
 import { dataKataTambahan } from "./data/materi/kata-tambahan";
 import { dataKataLanjutan } from "./data/materi/kata-lanjutan";
 import { dataKataPengayaan } from "./data/materi/kata-pengayaan";
+import { dataAngka } from "./data/materi/berhitung";
+
+import MenghitungBenda from "./MenghitungBenda";
+import MembandingkanBilangan from "./MembandingkanBilangan";
 
 import "./App.css";
 
@@ -39,6 +43,73 @@ type JenisPelajaran =
   | "membaca"
   | "menulis"
   | "berhitung";
+
+type TopikBerhitung =
+  | "angka"
+  | "menghitung"
+  | "membandingkan";
+
+type StatusBelajar = {
+  tahapHalaman: TahapHalaman;
+  pelajaranAktif: JenisPelajaran;
+  materiAktif: MateriId;
+  kelompokKata: KelompokKata;
+  hurufFilter: string;
+  tingkatFilter: FilterTingkat;
+  indeksAktif: number;
+  tampilkanDaftar: boolean;
+  indeksAngka: number;
+  topikBerhitung: TopikBerhitung;
+  tampilkanDaftarAngka: boolean;
+};
+
+const KUNCI_STATUS = "sagha-study-club-status";
+
+const statusDefault: StatusBelajar = {
+  tahapHalaman: "pembuka",
+  pelajaranAktif: "membaca",
+  materiAktif: "huruf",
+  kelompokKata: "sederhana",
+  hurufFilter: "semua",
+  tingkatFilter: "semua",
+  indeksAktif: 0,
+  tampilkanDaftar: false,
+  indeksAngka: 0,
+  topikBerhitung: "angka",
+  tampilkanDaftarAngka: false,
+};
+
+function bacaStatus(): StatusBelajar {
+  try {
+    const tersimpan = sessionStorage.getItem(KUNCI_STATUS);
+
+    if (!tersimpan) {
+      return statusDefault;
+    }
+
+    const data = JSON.parse(tersimpan);
+
+    const status: StatusBelajar = {
+      ...statusDefault,
+      ...data,
+    };
+
+    // Menjaga kompatibilitas dengan status versi sebelumnya.
+    const topikValid: TopikBerhitung[] = [
+      "angka",
+      "menghitung",
+      "membandingkan",
+    ];
+
+    if (!topikValid.includes(status.topikBerhitung)) {
+      status.topikBerhitung = "angka";
+    }
+
+    return status;
+  } catch {
+    return statusDefault;
+  }
+}
 
 const ikonMateri: Record<MateriId, string> = {
   huruf: "🔤",
@@ -80,27 +151,101 @@ const pilihanPelajaran: {
   },
 ];
 
+const pilihanTopikBerhitung: {
+  id: TopikBerhitung;
+  ikon: string;
+  judul: string;
+}[] = [
+  {
+    id: "angka",
+    ikon: "🔢",
+    judul: "Mengenal Angka",
+  },
+  {
+    id: "menghitung",
+    ikon: "🍎",
+    judul: "Menghitung Benda",
+  },
+  {
+    id: "membandingkan",
+    ikon: "⚖️",
+    judul: "Membandingkan Bilangan",
+  },
+];
+
 function App() {
+  const [statusAwal] = useState<StatusBelajar>(bacaStatus);
+
   const [tahapHalaman, setTahapHalaman] =
-    useState<TahapHalaman>("pembuka");
+    useState<TahapHalaman>(statusAwal.tahapHalaman);
 
   const [pelajaranAktif, setPelajaranAktif] =
-    useState<JenisPelajaran>("membaca");
+    useState<JenisPelajaran>(statusAwal.pelajaranAktif);
 
   const [materiAktif, setMateriAktif] =
-    useState<MateriId>("huruf");
+    useState<MateriId>(statusAwal.materiAktif);
 
   const [kelompokKata, setKelompokKata] =
-    useState<KelompokKata>("sederhana");
+    useState<KelompokKata>(statusAwal.kelompokKata);
 
-  const [hurufFilter, setHurufFilter] = useState("semua");
+  const [hurufFilter, setHurufFilter] =
+    useState(statusAwal.hurufFilter);
 
   const [tingkatFilter, setTingkatFilter] =
-    useState<FilterTingkat>("semua");
+    useState<FilterTingkat>(statusAwal.tingkatFilter);
 
-  const [indeksAktif, setIndeksAktif] = useState(0);
+  const [indeksAktif, setIndeksAktif] =
+    useState(statusAwal.indeksAktif);
 
-  const [tampilkanDaftar, setTampilkanDaftar] = useState(false);
+  const [tampilkanDaftar, setTampilkanDaftar] =
+    useState(statusAwal.tampilkanDaftar);
+
+  const [indeksAngka, setIndeksAngka] =
+    useState(statusAwal.indeksAngka);
+
+  const [topikBerhitung, setTopikBerhitung] =
+    useState<TopikBerhitung>(statusAwal.topikBerhitung);
+
+  const [tampilkanDaftarAngka, setTampilkanDaftarAngka] =
+    useState(statusAwal.tampilkanDaftarAngka);
+
+  // Simpan posisi belajar setiap kali ada perubahan.
+  useEffect(() => {
+    const status: StatusBelajar = {
+      tahapHalaman,
+      pelajaranAktif,
+      materiAktif,
+      kelompokKata,
+      hurufFilter,
+      tingkatFilter,
+      indeksAktif,
+      tampilkanDaftar,
+      indeksAngka,
+      topikBerhitung,
+      tampilkanDaftarAngka,
+    };
+
+    try {
+      sessionStorage.setItem(
+        KUNCI_STATUS,
+        JSON.stringify(status)
+      );
+    } catch {
+      // Aplikasi tetap dapat digunakan jika penyimpanan tidak tersedia.
+    }
+  }, [
+    tahapHalaman,
+    pelajaranAktif,
+    materiAktif,
+    kelompokKata,
+    hurufFilter,
+    tingkatFilter,
+    indeksAktif,
+    tampilkanDaftar,
+    indeksAngka,
+    topikBerhitung,
+    tampilkanDaftarAngka,
+  ]);
 
   const kataUntukMateri =
     kelompokKata === "sederhana"
@@ -140,6 +285,7 @@ function App() {
         : kataTerfilter.length;
 
   const kataAktif = kataTerfilter[indeksAktif];
+  const angkaAktif = dataAngka[indeksAngka];
 
   const materiTerpilih = daftarMateri.find(
     (materi) => materi.id === materiAktif
@@ -159,7 +305,11 @@ function App() {
       setHurufFilter("semua");
       setTingkatFilter("semua");
       setTampilkanDaftar(false);
-
+      setTahapHalaman("materi");
+    } else if (pelajaran === "berhitung") {
+      setTopikBerhitung("angka");
+      setIndeksAngka(0);
+      setTampilkanDaftarAngka(false);
       setTahapHalaman("materi");
     } else {
       setTahapHalaman("materi");
@@ -169,7 +319,9 @@ function App() {
   const kembaliKePilihanPelajaran = () => {
     setTahapHalaman("pilih-pelajaran");
     setIndeksAktif(0);
+    setIndeksAngka(0);
     setTampilkanDaftar(false);
+    setTampilkanDaftarAngka(false);
   };
 
   const pilihMateri = (id: MateriId) => {
@@ -215,6 +367,27 @@ function App() {
     );
   };
 
+  const angkaBerikutnya = () => {
+    setIndeksAngka((sebelumnya) =>
+      (sebelumnya + 1) % dataAngka.length
+    );
+  };
+
+  const angkaSebelumnya = () => {
+    setIndeksAngka((sebelumnya) =>
+      (sebelumnya - 1 + dataAngka.length) % dataAngka.length
+    );
+  };
+
+  const pilihAngka = (indeks: number) => {
+    setIndeksAngka(indeks);
+  };
+
+  const pilihTopikBerhitung = (topik: TopikBerhitung) => {
+    setTopikBerhitung(topik);
+    setTampilkanDaftarAngka(false);
+  };
+
   const daftarPilihan =
     materiAktif === "huruf"
       ? dataHuruf
@@ -227,12 +400,38 @@ function App() {
       ? ((indeksAktif + 1) / jumlahMateri) * 100
       : 0;
 
+  const persentaseAngka =
+    angkaAktif
+      ? ((indeksAngka + 1) / dataAngka.length) * 100
+      : 0;
+
   const kelasMain =
     tahapHalaman === "pembuka"
       ? "main main-centered main-welcome"
       : tahapHalaman === "pilih-pelajaran"
         ? "main main-centered main-selection"
         : "main";
+
+  const judulTopikBerhitung =
+    topikBerhitung === "angka"
+      ? "Mengenal Angka 0–10"
+      : topikBerhitung === "menghitung"
+        ? "Menghitung Benda 0–10"
+        : "Membandingkan Bilangan 0–10";
+
+  const deskripsiTopikBerhitung =
+    topikBerhitung === "angka"
+      ? "Yuk, kenali lambang angka dan namanya!"
+      : topikBerhitung === "menghitung"
+        ? "Amati benda-benda berikut, lalu hitung jumlahnya."
+        : "Yuk, belajar membandingkan jumlah benda!";
+
+  const deskripsiPenutupBerhitung =
+    topikBerhitung === "angka"
+      ? "Mengenal angka adalah langkah pertama menjadi jago berhitung."
+      : topikBerhitung === "menghitung"
+        ? "Menghitung benda membantu kita memahami jumlah."
+        : "Membandingkan bilangan membantu kita memahami lebih banyak, lebih sedikit, dan sama banyak.";
 
   return (
     <div className="app">
@@ -657,7 +856,190 @@ function App() {
           )}
 
         {tahapHalaman === "materi" &&
-          pelajaranAktif !== "membaca" && (
+          pelajaranAktif === "berhitung" && (
+            <>
+              <button
+                className="toggle-list"
+                onClick={kembaliKePilihanPelajaran}
+              >
+                <span>← Kembali ke Pilihan Pelajaran</span>
+              </button>
+
+              <section className="lesson">
+                <div className="lesson-heading">
+                  <div>
+                    <span className="section-kicker">
+                      WAKTUNYA BERHITUNG
+                    </span>
+
+                    <h2>{judulTopikBerhitung}</h2>
+
+                    <p>{deskripsiTopikBerhitung}</p>
+                  </div>
+
+                  {topikBerhitung === "angka" && (
+                    <div className="lesson-count">
+                      <span>{indeksAngka + 1}</span>
+                      <span className="count-divider">/</span>
+                      <span>{dataAngka.length}</span>
+                    </div>
+                  )}
+                </div>
+
+                {topikBerhitung === "angka" && (
+                  <div className="progress-track">
+                    <div
+                      className="progress-value"
+                      style={{ width: `${persentaseAngka}%` }}
+                    />
+                  </div>
+                )}
+
+                {topikBerhitung === "angka" && angkaAktif && (
+                  <div className="learning-card number-card">
+                    <div className="learning-card-top">
+                      <span className="learning-pill">
+                        MARI MENGENAL ANGKA
+                      </span>
+                      <span className="learning-sparkle">✦</span>
+                    </div>
+
+                    <div className="number-display">
+                      <span className="number-symbol">
+                        {angkaAktif.angka}
+                      </span>
+
+                      <span className="number-name">
+                        {angkaAktif.nama}
+                      </span>
+                    </div>
+
+                    <div className="number-illustration">
+                      {angkaAktif.angka === 0 ? (
+                        <span className="zero-illustration">
+                          🌱
+                        </span>
+                      ) : (
+                        <span className="counting-objects">
+                          {angkaAktif.ilustrasi}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="number-description">
+                      {angkaAktif.deskripsi}
+                    </div>
+
+                    <div className="learning-tip">
+                      <span>💡</span>
+                      Sebutkan angka dan hitung benda di atas bersama pengajar.
+                    </div>
+                  </div>
+                )}
+
+                {topikBerhitung === "angka" && (
+                  <>
+                    <div className="lesson-navigation">
+                      <button
+                        className="nav-button secondary"
+                        onClick={angkaSebelumnya}
+                      >
+                        <span>←</span>
+                        Sebelumnya
+                      </button>
+
+                      <button
+                        className="nav-button primary"
+                        onClick={angkaBerikutnya}
+                      >
+                        Berikutnya
+                        <span>→</span>
+                      </button>
+                    </div>
+
+                    <button
+                      className="toggle-list"
+                      onClick={() =>
+                        setTampilkanDaftarAngka(!tampilkanDaftarAngka)
+                      }
+                      aria-expanded={tampilkanDaftarAngka}
+                    >
+                      <span>
+                        {tampilkanDaftarAngka
+                          ? "Tutup daftar angka"
+                          : "Lihat semua angka"}
+                      </span>
+
+                      <span>
+                        {tampilkanDaftarAngka ? "−" : "+"}
+                      </span>
+                    </button>
+
+                    {tampilkanDaftarAngka && (
+                      <div className="number-grid">
+                        {dataAngka.map((item, index) => (
+                          <button
+                            key={item.angka}
+                            className={`number-grid-item ${
+                              indeksAngka === index ? "selected" : ""
+                            }`}
+                            onClick={() => pilihAngka(index)}
+                            aria-pressed={indeksAngka === index}
+                            aria-label={`Angka ${item.angka}, ${item.nama}`}
+                          >
+                            <strong>{item.angka}</strong>
+                            <small>{item.nama}</small>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {topikBerhitung === "menghitung" && (
+                  <MenghitungBenda />
+                )}
+
+                {topikBerhitung === "membandingkan" && (
+                  <MembandingkanBilangan />
+                )}
+
+                <div className="word-group-heading">
+                  <h3>Pilih materi pembelajaran</h3>
+                  <p>
+                    Pilih materi berhitung yang ingin kamu pelajari.
+                  </p>
+                </div>
+
+                <div className="word-group-selector">
+                  {pilihanTopikBerhitung.map((topik) => (
+                    <button
+                      key={topik.id}
+                      className={
+                        topikBerhitung === topik.id ? "selected" : ""
+                      }
+                      onClick={() => pilihTopikBerhitung(topik.id)}
+                      aria-pressed={topikBerhitung === topik.id}
+                    >
+                      <span>{topik.ikon}</span>
+                      {topik.judul}
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              <section className="closing-note">
+                <span>🌈</span>
+                <div>
+                  <strong>Hebat! Terus berlatih, ya!</strong>
+                  <p>{deskripsiPenutupBerhitung}</p>
+                </div>
+              </section>
+            </>
+          )}
+
+        {tahapHalaman === "materi" &&
+          pelajaranAktif === "menulis" && (
             <section className="catalog">
               <div className="section-heading">
                 <div>
@@ -665,24 +1047,16 @@ function App() {
                     SAGHA STUDY CLUB
                   </span>
 
-                  <h2>
-                    {pelajaranAktif === "menulis"
-                      ? "Ayo Belajar Menulis!"
-                      : "Ayo Belajar Berhitung!"}
-                  </h2>
+                  <h2>Ayo Belajar Menulis!</h2>
 
                   <p>
-                    {pelajaranAktif === "menulis"
-                      ? "Materi latihan menulis sedang kita siapkan."
-                      : "Materi latihan berhitung sedang kita siapkan."}
+                    Materi latihan menulis sedang kita siapkan.
                   </p>
                 </div>
               </div>
 
               <div className="learning-card empty-card">
-                <span>
-                  {pelajaranAktif === "menulis" ? "✏️" : "🔢"}
-                </span>
+                <span>✏️</span>
 
                 <h3>Segera hadir!</h3>
 
