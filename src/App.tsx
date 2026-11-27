@@ -579,11 +579,11 @@ function App() {
             setTahapHalaman("pembuka");
           }}
         >
-          <img
-            src="/sagha-logo.svg"
-            alt=""
-            className="brand-logo"
-          />
+         <img
+  src="/sagha-study-club-logo.png"
+  alt="Logo Sagha Study Club"
+  className="brand-logo"
+/>
 
           <div className="brand-text">
             <h1>Sagha Study Club</h1>
