@@ -22,6 +22,11 @@ import { dataAngka } from "./data/materi/berhitung";
 
 import MenghitungBenda from "./MenghitungBenda";
 import MembandingkanBilangan from "./MembandingkanBilangan";
+import PenjumlahanBilangan from "./PenjumlahanBilangan";
+import PenguranganBilangan from "./PenguranganBilangan";
+import LatihanPraMenulis from "./LatihanPraMenulis";
+import MenebalkanHuruf from "./MenebalkanHuruf";
+import MenyalinHuruf from "./MenyalinHuruf";
 
 import "./App.css";
 
@@ -47,7 +52,14 @@ type JenisPelajaran =
 type TopikBerhitung =
   | "angka"
   | "menghitung"
-  | "membandingkan";
+  | "membandingkan"
+  | "penjumlahan"
+  | "pengurangan";
+
+type TopikMenulis =
+  | "pra-menulis"
+  | "menebalkan-huruf"
+  | "menyalin-huruf";
 
 type StatusBelajar = {
   tahapHalaman: TahapHalaman;
@@ -61,6 +73,7 @@ type StatusBelajar = {
   indeksAngka: number;
   topikBerhitung: TopikBerhitung;
   tampilkanDaftarAngka: boolean;
+  topikMenulis: TopikMenulis;
 };
 
 const KUNCI_STATUS = "sagha-study-club-status";
@@ -77,6 +90,7 @@ const statusDefault: StatusBelajar = {
   indeksAngka: 0,
   topikBerhitung: "angka",
   tampilkanDaftarAngka: false,
+  topikMenulis: "pra-menulis",
 };
 
 function bacaStatus(): StatusBelajar {
@@ -94,15 +108,34 @@ function bacaStatus(): StatusBelajar {
       ...data,
     };
 
-    // Menjaga kompatibilitas dengan status versi sebelumnya.
     const topikValid: TopikBerhitung[] = [
       "angka",
       "menghitung",
       "membandingkan",
+      "penjumlahan",
+      "pengurangan",
     ];
 
     if (!topikValid.includes(status.topikBerhitung)) {
       status.topikBerhitung = "angka";
+    }
+
+    const topikMenulisValid: TopikMenulis[] = [
+      "pra-menulis",
+      "menebalkan-huruf",
+      "menyalin-huruf",
+    ];
+
+    if (!topikMenulisValid.includes(status.topikMenulis)) {
+      status.topikMenulis = "pra-menulis";
+    }
+
+    if (
+      typeof status.indeksAngka !== "number" ||
+      status.indeksAngka < 0 ||
+      status.indeksAngka >= dataAngka.length
+    ) {
+      status.indeksAngka = 0;
     }
 
     return status;
@@ -171,6 +204,42 @@ const pilihanTopikBerhitung: {
     ikon: "⚖️",
     judul: "Membandingkan Bilangan",
   },
+  {
+    id: "penjumlahan",
+    ikon: "➕",
+    judul: "Penjumlahan",
+  },
+  {
+    id: "pengurangan",
+    ikon: "➖",
+    judul: "Pengurangan",
+  },
+];
+
+const pilihanTopikMenulis: {
+  id: TopikMenulis;
+  ikon: string;
+  judul: string;
+  deskripsi: string;
+}[] = [
+  {
+    id: "pra-menulis",
+    ikon: "〰️",
+    judul: "Latihan Pra-Menulis",
+    deskripsi: "Berlatih mengikuti garis lurus, lengkung, dan pola.",
+  },
+  {
+    id: "menebalkan-huruf",
+    ikon: "🔤",
+    judul: "Menebalkan Huruf",
+    deskripsi: "Belajar menebalkan huruf kapital dan huruf kecil A–Z.",
+  },
+  {
+    id: "menyalin-huruf",
+    ikon: "✍️",
+    judul: "Menyalin Huruf",
+    deskripsi: "Lihat contoh huruf, lalu tulis sendiri di area latihan.",
+  },
 ];
 
 function App() {
@@ -209,6 +278,9 @@ function App() {
   const [tampilkanDaftarAngka, setTampilkanDaftarAngka] =
     useState(statusAwal.tampilkanDaftarAngka);
 
+  const [topikMenulis, setTopikMenulis] =
+    useState<TopikMenulis>(statusAwal.topikMenulis);
+
   // Simpan posisi belajar setiap kali ada perubahan.
   useEffect(() => {
     const status: StatusBelajar = {
@@ -223,6 +295,7 @@ function App() {
       indeksAngka,
       topikBerhitung,
       tampilkanDaftarAngka,
+      topikMenulis,
     };
 
     try {
@@ -245,6 +318,7 @@ function App() {
     indeksAngka,
     topikBerhitung,
     tampilkanDaftarAngka,
+    topikMenulis,
   ]);
 
   const kataUntukMateri =
@@ -312,6 +386,7 @@ function App() {
       setTampilkanDaftarAngka(false);
       setTahapHalaman("materi");
     } else {
+      setTopikMenulis("pra-menulis");
       setTahapHalaman("materi");
     }
   };
@@ -388,6 +463,10 @@ function App() {
     setTampilkanDaftarAngka(false);
   };
 
+  const pilihTopikMenulis = (topik: TopikMenulis) => {
+    setTopikMenulis(topik);
+  };
+
   const daftarPilihan =
     materiAktif === "huruf"
       ? dataHuruf
@@ -414,24 +493,36 @@ function App() {
 
   const judulTopikBerhitung =
     topikBerhitung === "angka"
-      ? "Mengenal Angka 0–10"
+      ? "Mengenal Angka 0–20"
       : topikBerhitung === "menghitung"
         ? "Menghitung Benda 0–10"
-        : "Membandingkan Bilangan 0–10";
+        : topikBerhitung === "membandingkan"
+          ? "Membandingkan Bilangan 0–10"
+          : topikBerhitung === "penjumlahan"
+            ? "Penjumlahan Bilangan 0–10"
+            : "Pengurangan Bilangan 0–10";
 
   const deskripsiTopikBerhitung =
     topikBerhitung === "angka"
       ? "Yuk, kenali lambang angka dan namanya!"
       : topikBerhitung === "menghitung"
         ? "Amati benda-benda berikut, lalu hitung jumlahnya."
-        : "Yuk, belajar membandingkan jumlah benda!";
+        : topikBerhitung === "membandingkan"
+          ? "Yuk, belajar membandingkan jumlah benda!"
+          : topikBerhitung === "penjumlahan"
+            ? "Yuk, gabungkan dua kelompok benda dan hitung jumlahnya!"
+            : "Yuk, belajar mengurangi benda dan menghitung sisanya!";
 
   const deskripsiPenutupBerhitung =
     topikBerhitung === "angka"
       ? "Mengenal angka adalah langkah pertama menjadi jago berhitung."
       : topikBerhitung === "menghitung"
         ? "Menghitung benda membantu kita memahami jumlah."
-        : "Membandingkan bilangan membantu kita memahami lebih banyak, lebih sedikit, dan sama banyak.";
+        : topikBerhitung === "membandingkan"
+          ? "Membandingkan bilangan membantu kita memahami lebih banyak, lebih sedikit, dan sama banyak."
+          : topikBerhitung === "penjumlahan"
+            ? "Penjumlahan membantu kita mengetahui jumlah seluruh benda."
+            : "Pengurangan membantu kita mengetahui jumlah benda yang tersisa.";
 
   return (
     <div className="app">
@@ -919,9 +1010,30 @@ function App() {
                         <span className="zero-illustration">
                           🌱
                         </span>
-                      ) : (
+                      ) : angkaAktif.angka <= 10 ? (
                         <span className="counting-objects">
                           {angkaAktif.ilustrasi}
+                        </span>
+                      ) : (
+                        <span
+                          className="counting-objects"
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
+                            gap: "8px",
+                            justifyItems: "center",
+                            alignItems: "center",
+                            width: "100%",
+                            maxWidth: "360px",
+                            margin: "0 auto",
+                          }}
+                        >
+                          {Array.from(
+                            angkaAktif.ilustrasi,
+                            (benda, index) => (
+                              <span key={index}>{benda}</span>
+                            )
+                          )}
                         </span>
                       )}
                     </div>
@@ -1004,6 +1116,14 @@ function App() {
                   <MembandingkanBilangan />
                 )}
 
+                {topikBerhitung === "penjumlahan" && (
+                  <PenjumlahanBilangan />
+                )}
+
+                {topikBerhitung === "pengurangan" && (
+                  <PenguranganBilangan />
+                )}
+
                 <div className="word-group-heading">
                   <h3>Pilih materi pembelajaran</h3>
                   <p>
@@ -1040,39 +1160,87 @@ function App() {
 
         {tahapHalaman === "materi" &&
           pelajaranAktif === "menulis" && (
-            <section className="catalog">
-              <div className="section-heading">
-                <div>
-                  <span className="section-kicker">
-                    SAGHA STUDY CLUB
-                  </span>
-
-                  <h2>Ayo Belajar Menulis!</h2>
-
-                  <p>
-                    Materi latihan menulis sedang kita siapkan.
-                  </p>
-                </div>
-              </div>
-
-              <div className="learning-card empty-card">
-                <span>✏️</span>
-
-                <h3>Segera hadir!</h3>
-
-                <p>
-                  Kita akan belajar bersama di bagian ini.
-                </p>
-              </div>
-
+            <>
               <button
-                className="nav-button secondary"
+                className="toggle-list"
                 onClick={kembaliKePilihanPelajaran}
               >
-                <span>←</span>
-                Kembali ke Pilihan Pelajaran
+                <span>← Kembali ke Pilihan Pelajaran</span>
               </button>
-            </section>
+
+              <section className="lesson">
+                <div className="lesson-heading">
+                  <div>
+                    <span className="section-kicker">
+                      WAKTUNYA MENULIS
+                    </span>
+
+                    <h2>
+                      {topikMenulis === "pra-menulis"
+                        ? "Latihan Pra-Menulis"
+                        : topikMenulis === "menebalkan-huruf"
+                          ? "Menebalkan Huruf A–Z"
+                          : "Menyalin Huruf A–Z"}
+                    </h2>
+
+                    <p>
+                      Pilih latihan yang ingin kamu pelajari.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="word-group-heading">
+                  <h3>Pilih materi menulis</h3>
+                  <p>
+                    Mulai dari latihan garis, lalu belajar menebalkan dan menyalin huruf.
+                  </p>
+                </div>
+
+                <div className="word-group-selector">
+                  {pilihanTopikMenulis.map((topik) => (
+                    <button
+                      key={topik.id}
+                      className={
+                        topikMenulis === topik.id ? "selected" : ""
+                      }
+                      onClick={() => pilihTopikMenulis(topik.id)}
+                      aria-pressed={topikMenulis === topik.id}
+                    >
+                      <span>{topik.ikon}</span>
+                      {topik.judul}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="writing-topic-description">
+                  {pilihanTopikMenulis.find(
+                    (topik) => topik.id === topikMenulis
+                  )?.deskripsi}
+                </div>
+
+                {topikMenulis === "pra-menulis" && (
+                  <LatihanPraMenulis />
+                )}
+
+                {topikMenulis === "menebalkan-huruf" && (
+                  <MenebalkanHuruf />
+                )}
+
+                {topikMenulis === "menyalin-huruf" && (
+                  <MenyalinHuruf />
+                )}
+              </section>
+
+              <section className="closing-note">
+                <span>🌈</span>
+                <div>
+                  <strong>Hebat! Terus berlatih, ya!</strong>
+                  <p>
+                    Latihan kecil hari ini membantu tanganmu semakin terampil menulis.
+                  </p>
+                </div>
+              </section>
+            </>
           )}
       </main>
 
