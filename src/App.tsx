@@ -343,46 +343,7 @@ function App() {
                 <span>← Kembali ke Pilihan Pelajaran</span>
               </button>
 
-              <section className="catalog">
-                <div className="section-heading">
-                  <div>
-                    <span className="section-kicker">
-                      BELAJAR MEMBACA
-                    </span>
-                    <h2>Pilih materi membaca</h2>
-                    <p>
-                      Kita mulai dari huruf, lalu belajar suku kata dan kata.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="materi-list">
-                  {daftarMateri.map((materi) => (
-                    <button
-                      key={materi.id}
-                      className={`materi-item ${
-                        materiAktif === materi.id ? "active" : ""
-                      }`}
-                      onClick={() => pilihMateri(materi.id)}
-                      aria-pressed={materiAktif === materi.id}
-                    >
-                      <span className={`materi-icon icon-${materi.id}`}>
-                        {ikonMateri[materi.id]}
-                      </span>
-
-                      <span className="materi-info">
-                        <strong>{materi.judul}</strong>
-                        <small>{materi.deskripsi}</small>
-                      </span>
-
-                      <span className="materi-arrow" aria-hidden="true">
-                        →
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </section>
-
+              {/* Materi pembelajaran berada di bagian atas */}
               <section className="lesson">
                 <div className="lesson-heading">
                   <div>
@@ -635,6 +596,47 @@ function App() {
                     ))}
                   </div>
                 )}
+              </section>
+
+              {/* Pilihan materi membaca berada di bawah pembelajaran */}
+              <section className="catalog">
+                <div className="section-heading">
+                  <div>
+                    <span className="section-kicker">
+                      BELAJAR MEMBACA
+                    </span>
+                    <h2>Pilih materi membaca</h2>
+                    <p>
+                      Kita mulai dari huruf, lalu belajar suku kata dan kata.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="materi-list">
+                  {daftarMateri.map((materi) => (
+                    <button
+                      key={materi.id}
+                      className={`materi-item ${
+                        materiAktif === materi.id ? "active" : ""
+                      }`}
+                      onClick={() => pilihMateri(materi.id)}
+                      aria-pressed={materiAktif === materi.id}
+                    >
+                      <span className={`materi-icon icon-${materi.id}`}>
+                        {ikonMateri[materi.id]}
+                      </span>
+
+                      <span className="materi-info">
+                        <strong>{materi.judul}</strong>
+                        <small>{materi.deskripsi}</small>
+                      </span>
+
+                      <span className="materi-arrow" aria-hidden="true">
+                        →
+                      </span>
+                    </button>
+                  ))}
+                </div>
               </section>
 
               <section className="closing-note">
