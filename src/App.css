@@ -3583,3 +3583,280 @@ button:disabled {
     min-height: 44px;
   }
 }
+
+/* =========================================
+   MATERI 4: MENULIS SUKU KATA
+========================================= */
+
+.syllable-writing {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  color: #26354a;
+}
+
+.syllable-writing-header {
+  margin-bottom: 24px;
+}
+
+.syllable-writing-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #fff0dc;
+  color: #a45b19;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.syllable-writing-header h2 {
+  margin: 12px 0 8px;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+}
+
+.syllable-writing-header p {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.syllable-writing-groups {
+  margin-bottom: 24px;
+}
+
+.syllable-writing-groups h3,
+.syllable-writing-choice h3 {
+  margin: 0 0 14px;
+  font-size: 1.15rem;
+}
+
+.syllable-writing-group-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.syllable-writing-group-list button {
+  border: 2px solid #e5eaf0;
+  border-radius: 14px;
+  padding: 10px 16px;
+  background: #fff;
+  color: #475569;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.syllable-writing-group-list button.active {
+  border-color: #e8a34d;
+  background: #fff4e5;
+  color: #995b17;
+}
+
+.syllable-writing-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.5fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.syllable-writing-example,
+.syllable-writing-practice {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #e2eaf3;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgb(37 72 112 / 6%);
+}
+
+.syllable-writing-example h3,
+.syllable-writing-practice h3 {
+  margin: 0 0 16px;
+  font-size: 1.15rem;
+}
+
+.syllable-writing-big {
+  display: grid;
+  min-height: 220px;
+  place-items: center;
+  border-radius: 20px;
+  background: #fff5e8;
+  color: #c27a2d;
+  font-size: clamp(5rem, 12vw, 8rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.syllable-writing-example > p {
+  margin: 16px 0;
+  color: #64748b;
+  text-align: center;
+}
+
+.syllable-writing-progress {
+  padding: 10px;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.syllable-writing-practice-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.syllable-writing-practice-heading h3 {
+  margin: 0;
+}
+
+.syllable-writing-practice-heading button {
+  border: 2px solid #e5eaf0;
+  border-radius: 12px;
+  padding: 8px 14px;
+  background: #fff;
+  color: #475569;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.syllable-writing-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 18px;
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+}
+
+.syllable-writing-paper {
+  fill: #fffdf5;
+  stroke: #e5d9b8;
+  stroke-width: 3;
+}
+
+.syllable-writing-line {
+  stroke: #cbd5e1;
+  stroke-width: 2;
+  stroke-dasharray: 10 8;
+}
+
+.syllable-writing-middle {
+  stroke: #e9a9a9;
+  stroke-dasharray: 7 7;
+}
+
+.syllable-writing-guide-text {
+  fill: #e3d8c5;
+  font-size: 150px;
+  font-weight: 700;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.syllable-writing-stroke {
+  fill: none;
+  stroke: #d18a36;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.syllable-writing-tip {
+  margin: 12px 0 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.syllable-writing-choice {
+  margin-top: 28px;
+}
+
+.syllable-writing-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.syllable-writing-choice-grid button {
+  min-width: 0;
+  aspect-ratio: 1.2;
+  border: 2px solid #e5eaf0;
+  border-radius: 16px;
+  background: #fff;
+  color: #52677e;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.syllable-writing-choice-grid button.active {
+  border-color: #e8a34d;
+  background: #fff4e5;
+  color: #995b17;
+}
+
+.syllable-writing-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.syllable-writing-navigation button {
+  border: 2px solid #e5eaf0;
+  border-radius: 14px;
+  padding: 12px 18px;
+  background: #fff;
+  color: #475569;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.syllable-writing-navigation span {
+  color: #64748b;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .syllable-writing {
+    padding: 16px;
+  }
+
+  .syllable-writing-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .syllable-writing-big {
+    min-height: 180px;
+  }
+
+  .syllable-writing-navigation {
+    flex-direction: column;
+  }
+
+  .syllable-writing-navigation button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .syllable-writing * {
+    scroll-behavior: auto;
+  }
+}

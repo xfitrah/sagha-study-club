@@ -24,9 +24,12 @@ import MenghitungBenda from "./MenghitungBenda";
 import MembandingkanBilangan from "./MembandingkanBilangan";
 import PenjumlahanBilangan from "./PenjumlahanBilangan";
 import PenguranganBilangan from "./PenguranganBilangan";
+
 import LatihanPraMenulis from "./LatihanPraMenulis";
 import MenebalkanHuruf from "./MenebalkanHuruf";
 import MenyalinHuruf from "./MenyalinHuruf";
+import MenulisSukuKata from "./MenulisSukuKata";
+import MenulisAngka from "./MenulisAngka";
 
 import "./App.css";
 
@@ -59,7 +62,9 @@ type TopikBerhitung =
 type TopikMenulis =
   | "pra-menulis"
   | "menebalkan-huruf"
-  | "menyalin-huruf";
+  | "menyalin-huruf"
+  | "menulis-suku-kata"
+  | "menulis-angka";
 
 type StatusBelajar = {
   tahapHalaman: TahapHalaman;
@@ -124,6 +129,8 @@ function bacaStatus(): StatusBelajar {
       "pra-menulis",
       "menebalkan-huruf",
       "menyalin-huruf",
+      "menulis-suku-kata",
+      "menulis-angka",
     ];
 
     if (!topikMenulisValid.includes(status.topikMenulis)) {
@@ -239,6 +246,20 @@ const pilihanTopikMenulis: {
     ikon: "✍️",
     judul: "Menyalin Huruf",
     deskripsi: "Lihat contoh huruf, lalu tulis sendiri di area latihan.",
+  },
+  {
+    id: "menulis-suku-kata",
+    ikon: "📝",
+    judul: "Menulis Suku Kata",
+    deskripsi:
+      "Belajar menulis suku kata sederhana seperti ba, bi, bu, be, dan bo.",
+  },
+  {
+    id: "menulis-angka",
+    ikon: "🔢",
+    judul: "Menulis Angka 1–10",
+    deskripsi:
+      "Berlatih menebalkan dan menulis angka 1 sampai 10.",
   },
 ];
 
@@ -523,6 +544,28 @@ function App() {
           : topikBerhitung === "penjumlahan"
             ? "Penjumlahan membantu kita mengetahui jumlah seluruh benda."
             : "Pengurangan membantu kita mengetahui jumlah benda yang tersisa.";
+
+  const judulTopikMenulis =
+    topikMenulis === "pra-menulis"
+      ? "Latihan Pra-Menulis"
+      : topikMenulis === "menebalkan-huruf"
+        ? "Menebalkan Huruf A–Z"
+        : topikMenulis === "menyalin-huruf"
+          ? "Menyalin Huruf A–Z"
+          : topikMenulis === "menulis-suku-kata"
+            ? "Menulis Suku Kata"
+            : "Menulis Angka 1–10";
+
+  const deskripsiPenutupMenulis =
+    topikMenulis === "pra-menulis"
+      ? "Latihan kecil hari ini membantu tanganmu semakin siap menulis."
+      : topikMenulis === "menebalkan-huruf"
+        ? "Terus berlatih mengikuti bentuk huruf agar tulisanmu semakin rapi."
+        : topikMenulis === "menyalin-huruf"
+          ? "Latihan menyalin membantu kamu mengenal bentuk huruf dan menulisnya sendiri."
+          : topikMenulis === "menulis-suku-kata"
+            ? "Latihan menulis suku kata membantu kamu menyusun huruf menjadi bunyi yang bermakna."
+            : "Terus berlatih menulis angka agar tulisanmu semakin rapi dan mudah dibaca.";
 
   return (
     <div className="app">
@@ -1175,13 +1218,7 @@ function App() {
                       WAKTUNYA MENULIS
                     </span>
 
-                    <h2>
-                      {topikMenulis === "pra-menulis"
-                        ? "Latihan Pra-Menulis"
-                        : topikMenulis === "menebalkan-huruf"
-                          ? "Menebalkan Huruf A–Z"
-                          : "Menyalin Huruf A–Z"}
-                    </h2>
+                    <h2>{judulTopikMenulis}</h2>
 
                     <p>
                       Pilih latihan yang ingin kamu pelajari.
@@ -1192,7 +1229,8 @@ function App() {
                 <div className="word-group-heading">
                   <h3>Pilih materi menulis</h3>
                   <p>
-                    Mulai dari latihan garis, lalu belajar menebalkan dan menyalin huruf.
+                    Mulai dari latihan garis, lalu belajar menebalkan,
+                    menyalin huruf, menulis suku kata, dan menulis angka.
                   </p>
                 </div>
 
@@ -1229,15 +1267,21 @@ function App() {
                 {topikMenulis === "menyalin-huruf" && (
                   <MenyalinHuruf />
                 )}
+
+                {topikMenulis === "menulis-suku-kata" && (
+                  <MenulisSukuKata />
+                )}
+
+                {topikMenulis === "menulis-angka" && (
+                  <MenulisAngka />
+                )}
               </section>
 
               <section className="closing-note">
                 <span>🌈</span>
                 <div>
                   <strong>Hebat! Terus berlatih, ya!</strong>
-                  <p>
-                    Latihan kecil hari ini membantu tanganmu semakin terampil menulis.
-                  </p>
+                  <p>{deskripsiPenutupMenulis}</p>
                 </div>
               </section>
             </>
